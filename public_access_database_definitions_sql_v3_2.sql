@@ -16,6 +16,15 @@ CREATE TABLE IF NOT EXISTS a2
     		
 ) ;
 
+COMMENT ON TABLE a2 IS 'Additional Appliction Detail';
+COMMENT ON COLUMN a2.spectrum_manager_leasing IS '/* No Longer Used */'; 
+COMMENT ON COLUMN a2.defacto_transfer_leasing IS '/* No Longer Used */'; 
+COMMENT ON COLUMN a2.new_spectrum_leasing IS '/* No Longer Used */'; 
+COMMENT ON COLUMN a2.spectrum_subleasing IS '/* No Longer Used */'; 
+COMMENT ON COLUMN a2.xfer_control_lessee IS '/* No Longer Used */'; 
+COMMENT ON COLUMN a2.revision_spectrum_lease IS '/* No Longer Used */'; 
+COMMENT ON COLUMN a2.assignment_spectrum_lease IS '/* No Longer Used */'; 
+
 -- Aircraft
 CREATE TABLE IF NOT EXISTS ac
 (
@@ -30,6 +39,8 @@ CREATE TABLE IF NOT EXISTS ac
       fleet_indicator           char(1)              null,
       n_number                  char(10)             null
 ) ;
+
+COMMENT ON TABLE ac IS 'Aircraft';
 
 -- Application Detail
 CREATE TABLE IF NOT EXISTS ad
@@ -67,15 +78,19 @@ CREATE TABLE IF NOT EXISTS ad
       use_of_service       		char(1)		     null
 ) ;
 
+COMMENT ON TABLE ad IS 'Application Detail';
+
 -- Application Purpose
 CREATE TABLE IF NOT EXISTS ad_application_purpose
 (
 	purpose		CHAR(2)		UNIQUE PRIMARY KEY,
-	description	VARACHAR(40)	NOT NULL
+	description	VARCHAR(40)	NOT NULL
 );
 
+COMMENT ON TABLE ad_application_purpose IS 'Application Purpose';
+
 TRUNCATE TABLE ad_application_purpose;
-INSERT INTO ad_application_purpose (application_purpose, description) VALUES
+INSERT INTO ad_application_purpose (purpose, description) VALUES
 	('AA', 'Assignment of Authorization'),
 	('AM', 'Amendment'),
 	('AR', 'DE Annual Report'),
@@ -109,8 +124,9 @@ CREATE TABLE IF NOT EXISTS ad_application_status
 (
 	status	CHAR(1)		UNIQUE PRIMARY KEY,
 	description VARCHAR(40)	NOT NULL
-)
-;
+);
+
+COMMENT ON TABLE ad_application_status IS 'Application Status';
 
 TRUNCATE TABLE ad_application_status;
 INSERT INTO ad_application_status (status, description) VALUES
@@ -143,8 +159,9 @@ CREATE TABLE IF NOT EXISTS ad_notification_code
 (
 	code 		CHAR(1)		UNIQUE PRIMARY KEY,
 	description	VARCHAR(250)	NOT NULL
-)
-;
+);
+
+COMMENT ON TABLE ad_notification_code IS 'Application Notification Code';
 
 TRUNCATE TABLE ad_notification_code;
 INSERT INTO ad_notification_code (code, description) VALUES
@@ -167,8 +184,9 @@ CREATE TABLE IF NOT EXISTS ad_source
 (
 	source		CHAR(1)		UNIQUE PRIMARY KEY,
 	description	VARCHAR(50)	NOT NULL
-)
-;
+);
+
+COMMENT ON TABLE ad_source IS 'Application Source';
 
 TRUNCATE TABLE ad_source;
 INSERT INTO ad_source (source, description) VALUES
@@ -182,8 +200,9 @@ CREATE TABLE IF NOT EXISTS ad_change_type
 (
 	change_type	CHAR(1)	UNIQUE PRIMARY KEY,
 	description	CHAR(5)	NOT NULL
-)
-;
+);
+
+COMMENT ON TABLE ad_change_type IS 'Application Change Type (Major/Minor Indicator)';
 
 TRUNCATE TABLE ad_change_type;
 INSERT INTO ad_change_type (change_type, description) VALUES
@@ -196,8 +215,9 @@ CREATE TABLE IF NOT EXISTS ad_use_of_service
 (
 	use		CHAR(1)	UNIQUE PRIMARY KEY,
 	description	VARCHAR(255)	NOT NULL
-)
-;
+);
+
+COMMENT ON TABLE ad_use_of_service IS 'Application Use of Service Code';
 
 TRUNCATE TABLE ad_use_of_service;
 INSERT INTO ad_use_of_service (use, description) VALUES
@@ -218,7 +238,9 @@ CREATE TABLE IF NOT EXISTS ag
       des_ent_or_closed_bid_impact char(1)	     null,
       reserved_for_future	char(1)		     null,
       mod_to_rev		char(1)		     null						 	  	
-) ;
+);
+
+COMMENT ON TABLE ag IS 'Agreement (???)';
 
 -- Additional MM Application Attachement Information
 CREATE TABLE IF NOT EXISTS ah
@@ -228,7 +250,9 @@ CREATE TABLE IF NOT EXISTS ah
       uls_file_num              char(14)             null,
       attachment_desc           varchar(60)          null, 
       attachment_file_id        char(18)             null
-) ;
+);
+
+COMMENT ON TABLE ah IS 'Additional MM Application Attachement Information';
 
 -- Amateur
 CREATE TABLE IF NOT EXISTS am
@@ -253,13 +277,16 @@ CREATE TABLE IF NOT EXISTS am
       trustee_name              varchar(50)          null
 ) ;
 
+COMMENT ON TABLE am IS 'Amateur';
+
 -- Amateur Operator Class
 CREATE TABLE IF NOT EXISTS am_operator_class
 (
 	class		CHAR(1)		UNIQUE PRIMARY KEY,
 	description	VARCHAR(16)
-)
-;
+);
+
+COMMENT ON TABLE am_operator_class IS 'Amateur Operator Class';
 
 TRUNCATE TABLE am_operator_class;
 INSERT INTO am_operator_class (operator_class, description) VALUES
@@ -311,8 +338,9 @@ CREATE TABLE IF NOT EXISTS an
       status_date		timestamp(3)	     null,
       psd_nonpsd_methodology    varchar(10)          null,
       maximum_erp               numeric(15,3)        null
-)
-;
+);
+
+COMMENT ON TABLE an IS 'Antenna';
 
 
 -- Appeal (???)
@@ -330,8 +358,9 @@ CREATE TABLE IF NOT EXISTS ap
       last_name                 varchar(20)          null,
       suffix                    char(3)              null,
       fcc_reg_number	        char(10)	     null	
-)
-;
+);
+
+COMMENT ON TABLE ap IS 'Appeal (???)';
 
 -- Associated Callsign
 CREATE TABLE IF NOT EXISTS "as"
@@ -345,8 +374,9 @@ CREATE TABLE IF NOT EXISTS "as"
       status_code		char(1)		     null,
       status_date		timestamp(3)	     null,
       action_performed  	char(1)              null
-)
-;
+);
+
+COMMENT ON TABLE "as" IS 'Associated Callsign';
 
 -- Attachment
 CREATE TABLE IF NOT EXISTS at
@@ -360,8 +390,9 @@ CREATE TABLE IF NOT EXISTS at
       attachment_date           char(10)             null,
       attachment_file_name      varchar(60)          null,
       attachment_action_performed char(1)            null
-)
-;
+);
+
+COMMENT ON TABLE at IS 'Attachment';
 
 -- Broadcast Call Sign
 CREATE TABLE IF NOT EXISTS bc
@@ -377,9 +408,9 @@ CREATE TABLE IF NOT EXISTS bc
       parent_facility_id        int                  null,
       parent_class_code         char(2)              null,
       nonparent_type_code       char(1)              null
-)
-;
+);
 
+COMMENT ON TABLE bc IS 'Broadcast Call Sign';
 
 -- Bidding Credit
 CREATE TABLE IF NOT EXISTS bd
@@ -420,8 +451,9 @@ CREATE TABLE IF NOT EXISTS bd
 	  bidding_credit_type char(1)	null,
       bidding_credit_percent char(3)	null,
       bc_spectrum_capacity char(1)	null
-)
-;
+);
+
+COMMENT ON TABLE bd IS 'Bidding Credit';
 
 -- BRS/EBS Specific Questions
 CREATE TABLE IF NOT EXISTS be
@@ -436,8 +468,9 @@ CREATE TABLE IF NOT EXISTS be
       programming_requirements	  char(1)	       null,
       interference_protection	  char(1)	       null
 
-)
-;
+);
+
+COMMENT ON TABLE be IS 'BRS/EBS Specific Questions';
 
 -- Buildout Frequency
 CREATE TABLE IF NOT EXISTS bf
@@ -455,8 +488,9 @@ CREATE TABLE IF NOT EXISTS bf
       status_date		timestamp(3)	     null,
       frequency_number	        int		     null,
       discontinuance_date             char(10)                  null
-)
-;
+);
+
+COMMENT ON TABLE bf IS 'Buildout Frequency';
 
 -- Buildout Location
 CREATE TABLE IF NOT EXISTS bl
@@ -471,8 +505,9 @@ CREATE TABLE IF NOT EXISTS bl
       status_code		char(1)		     null,
       status_date		timestamp(3)	     null,
       discontinuance_date     char(10)                  null
-)
-;
+);
+
+COMMENT ON TABLE bl IS 'Buildout Location';
 
 -- Buildout
 CREATE TABLE IF NOT EXISTS bo
@@ -486,8 +521,9 @@ CREATE TABLE IF NOT EXISTS bo
       status_code		char(1)		     null,
       status_date		timestamp(3)	     null,
       discontinuance_date     char(10)                  null
-)
-;
+);
+
+COMMENT ON TABLE bo IS 'Buildout';
 
 -- Business Type
 CREATE TABLE IF NOT EXISTS bt
@@ -498,8 +534,9 @@ CREATE TABLE IF NOT EXISTS bt
       ebf_number                varchar(30)          null,
       applicant_status		char(1)              null
      			
-)
-;
+);
+
+COMMENT ON TABLE bt IS 'Business Type';
 
 -- Close Bidding/Designated Entity Eligibility
 CREATE TABLE IF NOT EXISTS cd
@@ -514,8 +551,9 @@ CREATE TABLE IF NOT EXISTS cd
 	aggregate_gros_rvn_de		money		null,
 	aggregate_gros_rvn_cb		money		null,
 	total_assets			money		null								
-)
-;
+);
+
+COMMENT ON TABLE cd IS 'Close Bidding/Designated Entity Eligibility';
 
 -- Call Sign/File Number
 CREATE TABLE IF NOT EXISTS cf
@@ -536,8 +574,9 @@ CREATE TABLE IF NOT EXISTS cf
       actual_date_of_construction       timestamp(3)	     null,
       frequency_number                  int                  null,
       assign_callsign                   char(10)             null 
-)
-;
+);
+
+COMMENT ON TABLE cf IS 'Call Sign/File Number';
 
 -- Coast and Ground
 CREATE TABLE IF NOT EXISTS cg
@@ -585,8 +624,9 @@ CREATE TABLE IF NOT EXISTS cg
       station_class             char(4)              null,
       status_code		char(1)	             null,
       status_date		timestamp(3)	     null
-)
-;
+);
+
+COMMENT ON TABLE cg IS 'Coast and Ground';
 
 -- Comments
 CREATE TABLE IF NOT EXISTS co
@@ -599,8 +639,9 @@ CREATE TABLE IF NOT EXISTS co
       description               varchar(255)         null,
       status_code		char(1)		     null,
       status_date		timestamp(3)             null
-)
-;
+);
+
+COMMENT ON TABLE co IS 'Comments';
 
 -- Control Point
 CREATE TABLE IF NOT EXISTS cp
@@ -619,8 +660,9 @@ CREATE TABLE IF NOT EXISTS cp
       control_county            varchar(60)          null,
       status_code		char(1)		     null,
       status_date		timestamp(3)	     null
-)
-;
+);
+
+COMMENT ON TABLE cp IS 'Control Point';
 
 -- Coser
 CREATE TABLE IF NOT EXISTS cs
@@ -637,8 +679,9 @@ CREATE TABLE IF NOT EXISTS cs
       coser_activity_type       char(1)              null,
       status_code		char(1)		     null,
       status_date		timestamp(3)	     null
-)
-;
+);
+
+COMMENT ON TABLE cs IS 'Coser';
 
 -- Emission
 CREATE TABLE IF NOT EXISTS em
@@ -659,8 +702,9 @@ CREATE TABLE IF NOT EXISTS em
       status_code		char(1)		     null,
      status_date		timestamp(3)	     null,
      emission_sequence_id       int                  null
-)
-;
+);
+
+COMMENT ON TABLE em IS 'Emission';
 
 -- Entity
 CREATE TABLE IF NOT EXISTS en
@@ -692,8 +736,9 @@ CREATE TABLE IF NOT EXISTS en
       applicant_type_other      char(40)             null,
       status_code               char(1)		     null,
       status_date		timestamp(3)	     null
-)
-;
+);
+
+COMMENT ON TABLE en IS 'Entity';
 
 -- Entity type
 CREATE TABLE IF NOT EXISTS en_entity_type
@@ -701,6 +746,8 @@ CREATE TABLE IF NOT EXISTS en_entity_type
 	entity_type	CHAR(2)	UNIQUE PRIMARY KEY,
 	description	VARCHAR(40)
 );
+
+COMMENT ON TABLE en_entity_type IS 'Entity type';
 
 TRUNCATE TABLE en_entity_type;
 
@@ -719,10 +766,12 @@ INSERT INTO en_entity_type (entity_type, description) VALUES
 -- Entity Application Type Code
 CREATE TABLE IF NOT EXISTS en_applicant_type_code
 (
-	code	CHAR(1)	UNIQUE PRIMARY KEY,
+	code	CHAR(1)	PRIMARY KEY,
 	description	VARCHAR(40),
 	active	BOOLEAN
 );
+
+COMMENT ON TABLE en_applicant_type_code IS 'Entity Application Type Code';
 
 TRUNCATE TABLE en_application_type_code;
 INSERT INTO en_applicant_type_code (code, description, active) VALUES
@@ -750,8 +799,10 @@ CREATE TABLE IF NOT EXISTS status_code
 	code	CHAR(1) NULL,
 	description	VARCHAR(20)
 );
-/* Status Code appears on the following record types and uses the same
- * definitions:				
+
+COMMENT ON TABLE status_code IS 'Status Code';
+
+/* Status Code appears on the following record types:
  * EN, MW, CG, LM, CO, AS, SC, SF, BO, CP, LS, LO, LF, OP, BL, AN, RC, FR, F2,
  * IR, CS, FS, FF, BF, RA, EM, PC, PA, SG, L3, L4, O2, L5, L6, A3, F3, F4, F5,
  * F6, P2, TP
@@ -785,8 +836,9 @@ CREATE TABLE IF NOT EXISTS f2
       status_code		char(1)		     null,
       status_date		timestamp(3)	     null,
       trans_meth                char(1)              null
-)
-;
+);
+
+COMMENT ON TABLE f2 IS 'Additional Frequency Information';
 
 -- FRC Admin
 CREATE TABLE IF NOT EXISTS fa
@@ -806,8 +858,9 @@ CREATE TABLE IF NOT EXISTS fa
       cole_manager_code         char(5)              null,
       dm_call_sign              char(10)             null,
       proof_of_passing          char(1)              null 
-)
-;
+);
+
+COMMENT ON TABLE fa IS 'FRC Admin';
 
 -- Frequency Coordination
 CREATE TABLE IF NOT EXISTS fc
@@ -821,8 +874,9 @@ CREATE TABLE IF NOT EXISTS fc
       coordinator_phone         char(10)             null,
       freq_coordination_date    char(10)             null,
       action_performed          char(1)              null
-)
-;
+);
+
+COMMENT ON TABLE fc IS 'Frequency Coordination';
 
 -- Frequency Fee Form Special Condition
 CREATE TABLE IF NOT EXISTS ff
@@ -840,8 +894,9 @@ CREATE TABLE IF NOT EXISTS ff
       freq_freeform_condition   varchar(255)         null,
       status_code		char(1)		     null,
       status_date		timestamp(3)	     null
-)
-;
+);
+
+COMMENT ON TABLE ff IS 'Frequency Fee Form Special Condition';
 
 -- Frequency
 CREATE TABLE IF NOT EXISTS fr
@@ -876,8 +931,9 @@ CREATE TABLE IF NOT EXISTS fr
       status_code		char(1)		     null,
       status_date		timestamp(3)	     null,
       date_first_used		timestamp(3)	     null
-)
-;
+);
+
+COMMENT ON TABLE fr IS 'Frequency';
 
 -- Frequency Special Condition
 CREATE TABLE IF NOT EXISTS fs
@@ -894,8 +950,9 @@ CREATE TABLE IF NOT EXISTS fs
       status_code		char(1)		     null,
       status_date		timestamp(3)	     null
       
-)
-;
+);
+
+COMMENT ON TABLE fs IS 'Frequency Special Condition';
 
 -- Frequency Type
 CREATE TABLE IF NOT EXISTS ft
@@ -911,8 +968,9 @@ CREATE TABLE IF NOT EXISTS ft
       frequency_assigned        numeric(16,8)        null,
       frequency_type_number     int                  null,
       frequency_type_code       char(2)              null
-)
-;
+);
+
+COMMENT ON TABLE ft IS 'Frequency Type';
 
 -- Application / License Header
 CREATE TABLE IF NOT EXISTS hd
@@ -972,8 +1030,9 @@ CREATE TABLE IF NOT EXISTS hd
       additional_cert_answer    char(1)              null,
       discontinuation_ind       char(1)              null,
       regulatory_compliance_ind char(1)              null
-)
-;
+);
+
+COMMENT ON TABLE hd IS 'Application / License Header';
 
 -- License Status
 CREATE TABLE IF NOT EXISTS hd_license_status
@@ -981,6 +1040,8 @@ CREATE TABLE IF NOT EXISTS hd_license_status
 	status	CHAR(1)	UNIQUE PRIMARY KEY,
 	description	VARCHAR(40)	NOT NULL
 );
+
+COMMENT ON TABLE hd_license_status IS 'License Status';
 
 TRUNCATE TABLE hd_license_status;
 INSERT INTO hd_license_status (status, description) VALUES
@@ -994,14 +1055,16 @@ INSERT INTO hd_license_status (status, description) VALUES
 ;
 
 -- Developmental/STA/Demonstration License
-CREATE TABLE IF NOT EXIST hd_devel_sta
+CREATE TABLE IF NOT EXISTS hd_devel_sta
 (
 	status	CHAR(1)	UNIQUE PRIMARY KEY,
 	description VARCHAR(100) NOT NULL
 );
 
+COMMENT ON TABLE hd_devel_sta IS 'Developmental/STA/Demonstration License';
+
 TRUNCATE TABLE hd_devel_sta;
-INSERT INTO hd_devel_std (status, description) VALUES
+INSERT INTO hd_devel_sta (status, description) VALUES
 	('D', 'Developmental'),
 	('M', 'Demonstration'),
 	('N', 'Regular'),
@@ -1017,8 +1080,9 @@ CREATE TABLE IF NOT EXISTS hs
       callsign                  char(10)             null,
       log_date                  char(10)             null,
       code                      char(6)              null
-)
-;
+);
+
+COMMENT ON TABLE hs IS 'History';
 
 -- History code
 CREATE TABLE IF NOT EXISTS hs_code
@@ -1026,6 +1090,8 @@ CREATE TABLE IF NOT EXISTS hs_code
 	code	CHAR(6)	PRIMARY KEY,
 	description VARCHAR(80) NOT NULL
 );
+
+COMMENT ON TABLE hs_code IS 'History Code';
 
 TRUNCATE TABLE hs_code;
 INSERT INTO hs_code (code, description) VALUES
@@ -1510,8 +1576,9 @@ CREATE TABLE IF NOT EXISTS ia
       international_zip_code    varchar(20)          null,
       international_phone       char(20)             null,
       international_fax         char(20)             null
-)
-;
+);
+
+COMMENT ON TABLE ia IS 'International Address';
 
 -- IRAC
 CREATE TABLE IF NOT EXISTS ir
@@ -1530,8 +1597,9 @@ CREATE TABLE IF NOT EXISTS ir
       status_code		char(1)		     null,
       status_date		timestamp(3)	     null,
       a_irac_status_code 	smallint     	     null
-)
-;
+);
+
+COMMENT ON TABLE ir IS 'IRAC';
 
 -- License Attachment
 CREATE TABLE IF NOT EXISTS la
@@ -1544,8 +1612,9 @@ CREATE TABLE IF NOT EXISTS la
       attachment_date           char(10)             null ,
       attachment_filename       varchar(60)          null ,
       action_performed          char(1)              null
-)
-;
+);
+
+COMMENT ON TABLE la IS 'License Attachment';
 
 -- Additional Location Data
 CREATE TABLE IF NOT EXISTS l2
@@ -1565,9 +1634,9 @@ CREATE TABLE IF NOT EXISTS l2
       quiet_zone_consent        char(1)		     null,	
       status_code		char(1)		     null,
       status_date		timestamp(3)	     null
-	
-)
-;
+);
+
+COMMENT ON TABLE ls IS 'Additonal Location Data';
 
 -- Location Free Form Special Condition
 CREATE TABLE IF NOT EXISTS lf
@@ -1582,8 +1651,9 @@ CREATE TABLE IF NOT EXISTS lf
       loc_freeform_condition    varchar(255)         null,
       status_code		char(1)		     null,
       status_date		timestamp(3)	     null
-)
-;
+);
+
+COMMENT ON TABLE lf IS 'Location Free Form Special Condition';
 
 -- Additional MM License Attachment Information
 CREATE TABLE IF NOT EXISTS lh
@@ -1593,8 +1663,9 @@ CREATE TABLE IF NOT EXISTS lh
       call_sign                 char(10)             null,
       attachment_desc           varchar(60)          null, 
       attachment_file_id        char(18)             null
-)
-;
+);
+
+COMMENT ON TABLE lh IS 'Additional MM License Attachment Information';
 
 -- Land Mobile Administration
 CREATE TABLE IF NOT EXISTS lm
@@ -1608,8 +1679,9 @@ CREATE TABLE IF NOT EXISTS lm
       lm_eligibility_activity   varchar(255)         null,
       status_code		char(1)		     null,
       status_date		timestamp(3)	     null
-)
-;
+);
+
+COMMENT ON TABLE lm IS 'Land Mobile Administration';
 
 -- Location
 CREATE TABLE IF NOT EXISTS lo
@@ -1665,8 +1737,9 @@ CREATE TABLE IF NOT EXISTS lo
       status_code		char(1)		     null,
       status_date		timestamp(3)	     null,
       earth_agree               char(1)              null
-)
-;
+);
+
+COMMENT ON TABLE lo IS 'Location';
 
 -- Location Special Condition
 CREATE TABLE IF NOT EXISTS ls
@@ -1679,8 +1752,9 @@ CREATE TABLE IF NOT EXISTS ls
       special_condition_code    int                  null,
       status_code		char(1)		     null,
       status_date		timestamp(3)	     null
-)
-;
+);
+
+COMMENT ON TABLE ls IS 'Location Special Condition';
 
 -- Market Coordinate
 CREATE TABLE IF NOT EXISTS mc
@@ -1701,8 +1775,9 @@ CREATE TABLE IF NOT EXISTS mc
       partition_long_seconds    		numeric(3,1)         null,
       partition_long_direction  		char(1)              null,
 	  undefined_partitioned_area		int					 null
-)
-;
+);
+
+COMMENT ON TABLE mc IS 'Market Coordinate';
 
 -- MEA Number
 CREATE TABLE IF NOT EXISTS me
@@ -1714,8 +1789,9 @@ CREATE TABLE IF NOT EXISTS me
       callsign                	char(10)             null,
       mea_number		 		char(6)	     		 null,
       action_performed		 	char(1)	      		 null 
-)
-;
+);
+
+COMMENT ON TABLE me IS 'MEA Number';
 
 -- Channel Plan Information
 CREATE TABLE IF NOT EXISTS mh
@@ -1729,8 +1805,9 @@ CREATE TABLE IF NOT EXISTS mh
       channel_plan_number	 	 char(4)	     	null,
       channel_plan		 		 char(1)			null
 
-)
-;
+);
+
+COMMENT ON TABLE mh IS 'Channel Plan Information';
 
 -- Market Frequency
 CREATE TABLE IF NOT EXISTS mf
@@ -1745,8 +1822,9 @@ CREATE TABLE IF NOT EXISTS mf
       upper_frequency          	numeric(16,8)   null,
       def_und_ind				char(1)		null,
 	  defined_partition_area 	char(6)		null
-)
-;
+);
+
+COMMENT ON TABLE mf IS 'Market Frequency';
 
 -- MDS / ITFS Administration
 CREATE TABLE IF NOT EXISTS mi
@@ -1759,8 +1837,9 @@ CREATE TABLE IF NOT EXISTS mi
       facility_type_code        char(4)              null,
       statement_of_intention    char(1)              null,
       license_type_code         char(1)              null
-)
-;
+);
+
+COMMENT ON TABLE mi IS 'MDS / ITFS Administration';
 
 -- Market
 CREATE TABLE IF NOT EXISTS mk
@@ -1787,8 +1866,9 @@ CREATE TABLE IF NOT EXISTS mk
       open_closed_bidding	char(1)		     null,
       bidding_credit_type       char(1)	             null,
       claiming_unserved_area	char(1)              null
-)
-;
+);
+
+COMMENT ON TABLE mk IS 'Market';
 
 -- Market Partition
 CREATE TABLE IF NOT EXISTS mp
@@ -1809,8 +1889,10 @@ CREATE TABLE IF NOT EXISTS mp
 	  partition_sequence_number 	int 			null,
 	  whitespace_ind 	        char(1) 		null
 	  
-)
-;
+);
+
+COMMENT ON TABLE mp IS 'Market Partition';
+
 
 -- Microwave
 CREATE TABLE IF NOT EXISTS mw
@@ -1829,8 +1911,9 @@ CREATE TABLE IF NOT EXISTS mw
       cum_effect_is_major       char(1)              null,
       status_code		char(1)		     null,
       status_date		timestamp(3)	     null
-)
-;
+);
+
+COMMENT ON TABLE mw IS 'Microwave';
 
 -- Area of Operation Text
 CREATE TABLE IF NOT EXISTS op
@@ -1845,8 +1928,9 @@ CREATE TABLE IF NOT EXISTS op
       area_of_operation         varchar(255)         null,
       status_code		char(1)		     null,
       status_date		timestamp(3)	     null
-)
-;
+);
+
+COMMENT ON TABLE op IS 'Area of Operation Text';
 
 -- Microwave Path
 CREATE TABLE IF NOT EXISTS pa
@@ -1873,8 +1957,9 @@ CREATE TABLE IF NOT EXISTS pa
       cert_no_interference	char(1)  	     null,
 	status_code		char(1)			null,
 	status_date		timestamp(3)		null
-)
-;
+);
+
+COMMENT ON TABLE pa IS 'Microwave Path';
 
 -- Points of Communication
 CREATE TABLE IF NOT EXISTS pc
@@ -1902,8 +1987,9 @@ CREATE TABLE IF NOT EXISTS pc
       point_of_com_frequency    numeric(16,8)        null,
 	status_code		char(1)			null,
 	status_date		timestamp(3)		null
-)
-;
+);
+
+COMMENT ON TABLE pc IS 'Points of Communication';
 
 -- Radial
 CREATE TABLE IF NOT EXISTS ra
@@ -1926,8 +2012,9 @@ CREATE TABLE IF NOT EXISTS ra
       dist_to_cgsa              numeric(4,1)         null,
 	status_code		char(1)			null,
 	status_date		timestamp(3)		null
-)
-;
+);
+
+COMMENT ON TABLE ra IS 'Radial';
 
 -- Reciever
 CREATE TABLE IF NOT EXISTS rc
@@ -1946,9 +2033,9 @@ CREATE TABLE IF NOT EXISTS rc
       receiver_noise_figure	numeric(5,2)         null,
 	status_code		char(1)			null,
 	status_date		timestamp(3)		null
+);
 
-)
-;
+COMMENT ON TABLE rc IS 'Receiver';
 
 -- Reason
 CREATE TABLE IF NOT EXISTS re
@@ -1958,8 +2045,9 @@ CREATE TABLE IF NOT EXISTS re
       uls_file_number           char(14)             null,
       ebf_number                varchar(30)          null,
       reason                    varchar(255)         null
-)
-;
+);
+
+COMMENT ON TABLE re IS 'Reason';
 
 -- Revenue Information
 CREATE TABLE IF NOT EXISTS ri
@@ -1976,8 +2064,10 @@ CREATE TABLE IF NOT EXISTS ri
 	asset_disclosure		money			null,
         statement_type                  char(1)                 not null,
         in_existence                    char(1)                 null
-)
-;
+);
+
+COMMENT ON TABLE ri IS 'Revenue Information';
+
 
 -- Recieve Zone
 CREATE TABLE IF NOT EXISTS rz
@@ -1992,8 +2082,9 @@ CREATE TABLE IF NOT EXISTS rz
       antenna_number            int                  null,
       receive_zone_number       int                  null,
       receive_zone              char(6)              null
-)
-;
+);
+
+COMMENT ON TABLE rz IS 'Recieve Zone';
 
 -- Special Condition
 CREATE TABLE IF NOT EXISTS sc
@@ -2007,8 +2098,9 @@ CREATE TABLE IF NOT EXISTS sc
       special_condition_code    int                  null,
 	status_code		char(1)			null,
 	status_date		timestamp(3)		null
-)
-;
+);
+
+COMMENT ON TABLE sc IS 'Special Condition';
 
 -- Ship Exemption
 CREATE TABLE IF NOT EXISTS se
@@ -2055,8 +2147,9 @@ CREATE TABLE IF NOT EXISTS se
       count_of_reserve_power   int               null,
       count_of_other           int               null,
       description_of_other     varchar(50)           null
-)
-;
+);
+
+COMMENT ON TABLE se IS 'Ship Exemption';
 
 -- License Free Form Special Condition
 CREATE TABLE IF NOT EXISTS sf
@@ -2072,8 +2165,9 @@ CREATE TABLE IF NOT EXISTS sf
       lic_freeform_condition    varchar(255)         null,
 	status_code		char(1)			null,
 	status_date		timestamp(3)		null
-)
-;
+);
+
+COMMENT ON TABLE sf IS 'License Free Form Special Condition';
 
 -- Microwave Segments
 CREATE TABLE IF NOT EXISTS sg
@@ -2093,8 +2187,9 @@ CREATE TABLE IF NOT EXISTS sg
       segment_length            numeric(12,6)        null,
 	status_code		char(1)			null,
 	status_date		timestamp(3)		null
-)
-;
+);
+
+COMMENT ON TABLE sg IS 'Microwave Segments';
 
 -- Ship
 CREATE TABLE IF NOT EXISTS sh
@@ -2126,8 +2221,9 @@ CREATE TABLE IF NOT EXISTS sh
       required_cat_c            char(1)              null,
       required_cat_d            char(1)              null,
       required_cat_e            char(1)              null
-)
-;
+);
+
+COMMENT ON TABLE sh IS 'Ship';
 
 -- SIDS
 CREATE TABLE IF NOT EXISTS si
@@ -2139,8 +2235,9 @@ CREATE TABLE IF NOT EXISTS si
       call_sign                 char(10)             null,
       sid                       char(4)              null,
       action_performed          char(1)              null
-)
-;
+);
+
+COMMENT ON TABLE si IS 'SIDS';
 
 -- Ship Rescue Administration
 CREATE TABLE IF NOT EXISTS sr
@@ -2166,8 +2263,9 @@ CREATE TABLE IF NOT EXISTS sr
       raft_count                numeric(6,0)        null,  
       lifeboat_count            numeric(6,0)        null,
       vessel_capacity           numeric(6,0)        null
-)
-;
+);
+
+COMMENT ON TABLE sr IS 'Ship Rescue Administration';
 
 -- Sector
 CREATE TABLE IF NOT EXISTS st
@@ -2186,8 +2284,9 @@ CREATE TABLE IF NOT EXISTS st
       location_name             varchar(20)         null,
       status_code               char(1)             null,
       status_date               timestamp(3)            null
-)
-;
+);
+
+COMMENT ON TABLE st IS 'Sector';
 
 -- Ship Voyage
 CREATE TABLE IF NOT EXISTS sv
@@ -2199,8 +2298,9 @@ CREATE TABLE IF NOT EXISTS sv
       call_sign                 char(10)             null,
       voyage_number             int              null,
       voyage_description        varchar(255)         null
-)
-;
+);
+
+COMMENT ON TABLE sv IS 'Ship Voyage';
 
 -- Transfer / Assign
 CREATE TABLE IF NOT EXISTS ta
@@ -2259,8 +2359,14 @@ CREATE TABLE IF NOT EXISTS ta
 	  geo_overlap_600 char(1) null,
       rsv_spectrum_600 char(1) null,
       seek_rural_bc char(1) null
-)
-;
+);
+
+COMMENT ON TABLE ta IS 'Transfer / Assign';
+COMMENT ON COLUMN ta.assignee_gross_rev_1 IS '/* No Longer Used */';
+COMMENT ON COLUMN ta.assignee_gross_rev_2 IS '/* No Longer Used */';
+COMMENT ON COLUMN ta.assignee_gross_rev_3 IS '/* No Longer Used */';
+COMMENT ON COLUMN ta.assignee_tot_assets IS '/* No Longer Used */';
+COMMENT ON COLUMN ta.same_small_category IS '/* No Longer Used */';
 
 -- Tribal Land
 CREATE TABLE IF NOT EXISTS tl
@@ -2277,8 +2383,9 @@ CREATE TABLE IF NOT EXISTS tl
       tribal_certification      char(1)              null,
       tribal_land_type          varchar(10)          null,
       square_kilometers         numeric(8,0)         null
-)
-;
+);
+
+COMMENT ON TABLE tl IS 'Tribal Land';
 
 -- Cellular Unserved Area
 CREATE TABLE IF NOT EXISTS ua
@@ -2294,8 +2401,9 @@ CREATE TABLE IF NOT EXISTS ua
       submarket_code            int                  null,
       channel_block             char(4)              null,
       claiming_unserved_area    char(1)              null
-)
-;
+);
+
+COMMENT ON TABLE ua IS 'Cellular Unserved Area';
 
 -- Vanity Call Sign
 CREATE TABLE IF NOT EXISTS vc
@@ -2306,8 +2414,9 @@ CREATE TABLE IF NOT EXISTS vc
       ebf_number                varchar(30)          null,
       request_sequence          int              null,
       callsign_requested        char(10)             null
-)
-;
+);
+
+COMMENT ON TABLE vc IS 'Vanity Call Sign';
 
 -- Lease Classification
 CREATE TABLE IF NOT EXISTS lc
@@ -2321,8 +2430,9 @@ CREATE TABLE IF NOT EXISTS lc
       a_ls_allocation_type	char(1)              null, 
       a_ls_term			char(1)              null
       
-)
-;
+);
+
+COMMENT ON TABLE lc IS 'Lease Classification';
 
 -- Lease Dates
 CREATE TABLE IF NOT EXISTS ld
@@ -2336,9 +2446,9 @@ CREATE TABLE IF NOT EXISTS ld
       expired_date              timestamp(3)             null, 
       cancellation_date         timestamp(3)             null,
       lease_never_comm_ind      char(1)              null
-      
-)
-;
+);
+
+COMMENT ON TABLE ld IS 'Lease Dates';
 
 -- Lease Link
 CREATE TABLE IF NOT EXISTS ll
@@ -2350,8 +2460,10 @@ CREATE TABLE IF NOT EXISTS ll
       call_sign			char(10)             null,		
       lease_id			char(10)             null,      
       unique_system_identifier_2   numeric(9,0)         null     /*(the licensee) */
-)
-;
+);
+
+COMMENT ON TABLE ll IS 'Lease Link';
+COMMENT ON COLUMN ll.unique_system_identifier_2 IS '/* (the licensee) */';
 
 -- Leased Location
 CREATE TABLE IF NOT EXISTS l3
@@ -2408,8 +2520,9 @@ CREATE TABLE IF NOT EXISTS l3
       units_itinerant           int              null,
       status_code		char(1)			null,
       status_date		timestamp(3)		null
-)
-;
+);
+
+COMMENT ON TABLE l3 IS 'Leased Location';
 
 -- Additional Leased Location
 CREATE TABLE IF NOT EXISTS l4
@@ -2431,8 +2544,9 @@ CREATE TABLE IF NOT EXISTS l4
       quiet_zone_consent        char(1)	             null,	
 	status_code		char(1)		     null,
 	status_date		timestamp(3)	     null
-)
-;
+);
+
+COMMENT ON TABLE l4 IS 'Additional Leased Location';
 
 -- Leased Location Area of Operation
 CREATE TABLE IF NOT EXISTS o2
@@ -2449,8 +2563,9 @@ CREATE TABLE IF NOT EXISTS o2
       area_of_operation         varchar(255)         null,
       status_code		char(1)			null,
       status_date		timestamp(3)		null
-)
-;
+);
+
+COMMENT ON TABLE o2 IS 'Leased Location Area of Operation';
 
 -- Leased Location Canned Special Conditions
 CREATE TABLE IF NOT EXISTS l5
@@ -2467,8 +2582,9 @@ CREATE TABLE IF NOT EXISTS l5
       special_condition_code    int              null,
       status_code		char(1)			null,
       status_date		timestamp(3)		null
-)
-;
+);
+
+COMMENT ON TABLE l5 IS 'Leased Location Canned Special Conditions';
 
 -- Leased Location Free Form Special Conditions
 CREATE TABLE IF NOT EXISTS l6
@@ -2487,8 +2603,9 @@ CREATE TABLE IF NOT EXISTS l6
       loc_freeform_condition    varchar(255)         null,
       status_code		char(1)			null,
       status_date		timestamp(3)		null
-)
-;
+);
+
+COMMENT ON TABLE l6 IS 'Leased Location Free Form Special Conditions';
 
 -- Leased Antenna
 CREATE TABLE IF NOT EXISTS a3
@@ -2531,8 +2648,9 @@ CREATE TABLE IF NOT EXISTS a3
       line_loss                 numeric(3,1)         null,
 	status_code		char(1)			null,
 	status_date		timestamp(3)		null      
-)
-;
+);
+
+COMMENT ON TABLE a3 IS 'Leased Antenna';
 
 -- Leased Frequency
 CREATE TABLE IF NOT EXISTS f3
@@ -2568,9 +2686,9 @@ CREATE TABLE IF NOT EXISTS f3
       freq_seq_id               int              null,
 	status_code		char(1)			null,
 	status_date		timestamp(3)		null      
+);
 
-)
-;
+COMMENT ON TABLE f3 IS 'Leased Frequency';
 
 -- Additional Leased Frequency
 CREATE TABLE IF NOT EXISTS f4
@@ -2595,8 +2713,9 @@ CREATE TABLE IF NOT EXISTS f4
       date_first_use            timestamp(3)             null,
 	status_code		char(1)		     null,
 	status_date		timestamp(3)	     null
-)
-;
+);
+
+COMMENT ON TABLE f4 IS 'Additonal Leased Frequency';
 
 -- Leased Frequency Canned Special Conditions
 CREATE TABLE IF NOT EXISTS f5
@@ -2614,8 +2733,9 @@ CREATE TABLE IF NOT EXISTS f5
       special_condition_code    int              null,
 	status_code		char(1)			null,
 	status_date		timestamp(3)		null
-)
-;
+);
+
+COMMENT ON TABLE f5 IS 'Leased Frequency Canned Special Conditions';
 
 -- Leased Frequency Free Form Special Conditions
 CREATE TABLE IF NOT EXISTS f6
@@ -2637,8 +2757,9 @@ CREATE TABLE IF NOT EXISTS f6
       freq_freeform_condition   varchar(255)         null,
       status_code		char(1)			null,
       status_date		timestamp(3)		null
-)
-;
+);
+
+COMMENT ON TABLE f6 IS 'Leased Frequency Free Form Special Conditions';
 
 -- Leased Microwave Path
 CREATE TABLE IF NOT EXISTS p2
@@ -2667,8 +2788,9 @@ CREATE TABLE IF NOT EXISTS p2
       cert_no_interference	char(1)  	     null,
 	status_code		char(1)			null,
 	status_date		timestamp(3)		null
-)
-;
+);
+
+COMMENT ON TABLE p2 IS 'Leased Microwave Path';
 
 -- Transmission Method or Protocol
 CREATE TABLE IF NOT EXISTS tp
@@ -2687,5 +2809,6 @@ CREATE TABLE IF NOT EXISTS tp
       action_performed          char(1)              null, 
       status_code		char(1)			null,
       status_date		timestamp(3)		null
-)
-;
+);
+
+COMMENT ON TABLE tp IS 'Transmission Method or Protocol';
