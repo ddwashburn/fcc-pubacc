@@ -1,32 +1,35 @@
+-- Universal Licensing System (ULS)
+CREATE SCHEMA IF NOT EXISTS uls;
+
 -- Additional Appliction Detail
-CREATE TABLE IF NOT EXISTS a2
+CREATE TABLE IF NOT EXISTS uls.a2
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
       uls_file_number           char(14)             null,
       ebf_number                varchar(30)          null,
-      spectrum_manager_leasing  char(1)              null, /* No Longer Used */
-      defacto_transfer_leasing  char(1)              null, /* No Longer Used */
-      new_spectrum_leasing      char(1)              null, /* No Longer Used */
-      spectrum_subleasing       char(1)              null, /* No Longer Used */
-      xfer_control_lessee       char(1)              null, /* No Longer Used */
-      revision_spectrum_lease   char(1)              null, /* No Longer Used */
-      assignment_spectrum_lease char(1)              null, /* No Longer Used */
+      spectrum_manager_leasing  char(1)              null, -- No Longer Used
+      defacto_transfer_leasing  char(1)              null, -- No Longer Used
+      new_spectrum_leasing      char(1)              null, -- No Longer Used
+      spectrum_subleasing       char(1)              null, -- No Longer Used
+      xfer_control_lessee       char(1)              null, -- No Longer Used
+      revision_spectrum_lease   char(1)              null, -- No Longer Used
+      assignment_spectrum_lease char(1)              null, -- No Longer Used
       pfr_status		char(1)		     null
     		
 ) ;
 
-COMMENT ON TABLE a2 IS 'Additional Appliction Detail';
-COMMENT ON COLUMN a2.spectrum_manager_leasing IS '/* No Longer Used */'; 
-COMMENT ON COLUMN a2.defacto_transfer_leasing IS '/* No Longer Used */'; 
-COMMENT ON COLUMN a2.new_spectrum_leasing IS '/* No Longer Used */'; 
-COMMENT ON COLUMN a2.spectrum_subleasing IS '/* No Longer Used */'; 
-COMMENT ON COLUMN a2.xfer_control_lessee IS '/* No Longer Used */'; 
-COMMENT ON COLUMN a2.revision_spectrum_lease IS '/* No Longer Used */'; 
-COMMENT ON COLUMN a2.assignment_spectrum_lease IS '/* No Longer Used */'; 
+COMMENT ON TABLE  uls.a2 IS 'Additional Appliction Detail';
+COMMENT ON COLUMN uls.a2.spectrum_manager_leasing IS '-- No Longer Used'; 
+COMMENT ON COLUMN uls.a2.defacto_transfer_leasing IS '-- No Longer Used'; 
+COMMENT ON COLUMN uls.a2.new_spectrum_leasing IS '-- No Longer Used'; 
+COMMENT ON COLUMN uls.a2.spectrum_subleasing IS '-- No Longer Used'; 
+COMMENT ON COLUMN uls.a2.xfer_control_lessee IS '-- No Longer Used'; 
+COMMENT ON COLUMN uls.a2.revision_spectrum_lease IS '-- No Longer Used'; 
+COMMENT ON COLUMN uls.a2.assignment_spectrum_lease IS '-- No Longer Used'; 
 
 -- Aircraft
-CREATE TABLE IF NOT EXISTS ac
+CREATE TABLE IF NOT EXISTS uls.ac
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -40,10 +43,10 @@ CREATE TABLE IF NOT EXISTS ac
       n_number                  char(10)             null
 ) ;
 
-COMMENT ON TABLE ac IS 'Aircraft';
+COMMENT ON TABLE uls.ac IS 'Aircraft';
 
 -- Application Detail
-CREATE TABLE IF NOT EXISTS ad
+CREATE TABLE IF NOT EXISTS uls.ad
 (
       record_type               	char(2)              null,
       unique_system_identifier  	numeric(9,0)         not null,
@@ -78,19 +81,19 @@ CREATE TABLE IF NOT EXISTS ad
       use_of_service       		char(1)		     null
 ) ;
 
-COMMENT ON TABLE ad IS 'Application Detail';
+COMMENT ON TABLE uls.ad IS 'Application Detail';
 
 -- Application Purpose
-CREATE TABLE IF NOT EXISTS ad_application_purpose
+CREATE TABLE IF NOT EXISTS uls.ad_application_purpose
 (
 	purpose		CHAR(2)		UNIQUE PRIMARY KEY,
 	description	VARCHAR(40)	NOT NULL
 );
 
-COMMENT ON TABLE ad_application_purpose IS 'Application Purpose';
+COMMENT ON TABLE uls.ad_application_purpose IS 'Application Purpose';
 
-TRUNCATE TABLE ad_application_purpose;
-INSERT INTO ad_application_purpose (purpose, description) VALUES
+TRUNCATE TABLE uls.ad_application_purpose;
+INSERT INTO uls.ad_application_purpose (purpose, description) VALUES
 	('AA', 'Assignment of Authorization'),
 	('AM', 'Amendment'),
 	('AR', 'DE Annual Report'),
@@ -120,16 +123,16 @@ INSERT INTO ad_application_purpose (purpose, description) VALUES
 ;
 
 -- Application Status
-CREATE TABLE IF NOT EXISTS ad_application_status
+CREATE TABLE IF NOT EXISTS uls.ad_application_status
 (
 	status	CHAR(1)		UNIQUE PRIMARY KEY,
 	description VARCHAR(40)	NOT NULL
 );
 
-COMMENT ON TABLE ad_application_status IS 'Application Status';
+COMMENT ON TABLE uls.ad_application_status IS 'Application Status';
 
-TRUNCATE TABLE ad_application_status;
-INSERT INTO ad_application_status (status, description) VALUES
+TRUNCATE TABLE uls.ad_application_status;
+INSERT INTO uls.ad_application_status (status, description) VALUES
 	('1', 'Submitted'),
 	('2', 'Pending'),
 	('A', 'A Granted'),
@@ -155,16 +158,16 @@ INSERT INTO ad_application_status (status, description) VALUES
 ;
 
 -- Application Notification Code
-CREATE TABLE IF NOT EXISTS ad_notification_code
+CREATE TABLE IF NOT EXISTS uls.ad_notification_code
 (
 	code 		CHAR(1)		UNIQUE PRIMARY KEY,
 	description	VARCHAR(250)	NOT NULL
 );
 
-COMMENT ON TABLE ad_notification_code IS 'Application Notification Code';
+COMMENT ON TABLE uls.ad_notification_code IS 'Application Notification Code';
 
-TRUNCATE TABLE ad_notification_code;
-INSERT INTO ad_notification_code (code, description) VALUES
+TRUNCATE TABLE uls.ad_notification_code;
+INSERT INTO uls.ad_notification_code (code, description) VALUES
 	('1', 'First Buildout/Coverage Requirement'),
 	('2', 'Second Buildout/Coverage Requirement'),
 	('3', 'Third Buildout/Coverage Requirement'),
@@ -180,53 +183,53 @@ INSERT INTO ad_notification_code (code, description) VALUES
 ;
 
 -- Application Source
-CREATE TABLE IF NOT EXISTS ad_source
+CREATE TABLE IF NOT EXISTS uls.ad_source
 (
 	source		CHAR(1)		UNIQUE PRIMARY KEY,
 	description	VARCHAR(50)	NOT NULL
 );
 
-COMMENT ON TABLE ad_source IS 'Application Source';
+COMMENT ON TABLE uls.ad_source IS 'Application Source';
 
-TRUNCATE TABLE ad_source;
-INSERT INTO ad_source (source, description) VALUES
+TRUNCATE TABLE uls.ad_source;
+INSERT INTO uls.ad_source (source, description) VALUES
 	('B', 'Batch Filed'),
 	('I', 'Interactively Filed (external to FCC)'),
 	('M', 'Manually Keyed by FCC')
 ;
 
 -- Application Change Type (Major/Minor Indicator)
-CREATE TABLE IF NOT EXISTS ad_change_type
+CREATE TABLE IF NOT EXISTS uls.ad_change_type
 (
 	change_type	CHAR(1)	UNIQUE PRIMARY KEY,
 	description	CHAR(5)	NOT NULL
 );
 
-COMMENT ON TABLE ad_change_type IS 'Application Change Type (Major/Minor Indicator)';
+COMMENT ON TABLE uls.ad_change_type IS 'Application Change Type (Major/Minor Indicator)';
 
-TRUNCATE TABLE ad_change_type;
-INSERT INTO ad_change_type (change_type, description) VALUES
+TRUNCATE TABLE uls.ad_change_type;
+INSERT INTO uls.ad_change_type (change_type, description) VALUES
 	('J', 'Major'),
 	('N', 'Minor')
 ;	
 
 -- Application Use of Service Code
-CREATE TABLE IF NOT EXISTS ad_use_of_service
+CREATE TABLE IF NOT EXISTS uls.ad_use_of_service
 (
 	use		CHAR(1)	UNIQUE PRIMARY KEY,
 	description	VARCHAR(255)	NOT NULL
 );
 
-COMMENT ON TABLE ad_use_of_service IS 'Application Use of Service Code';
+COMMENT ON TABLE uls.ad_use_of_service IS 'Application Use of Service Code';
 
-TRUNCATE TABLE ad_use_of_service;
-INSERT INTO ad_use_of_service (use, description) VALUES
+TRUNCATE TABLE uls.ad_use_of_service;
+INSERT INTO uls.ad_use_of_service (use, description) VALUES
 	('C', 'Geographic area license used to provide service to customers'),
 	('P', 'License is used for private business (internal) purposes or to meet the licensee''s public safety communications needs')
 ;
 
--- Agreement (???)
-CREATE TABLE IF NOT EXISTS ag
+-- Agreement
+CREATE TABLE IF NOT EXISTS uls.ag
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -240,10 +243,10 @@ CREATE TABLE IF NOT EXISTS ag
       mod_to_rev		char(1)		     null						 	  	
 );
 
-COMMENT ON TABLE ag IS 'Agreement (???)';
+COMMENT ON TABLE uls.ag IS 'Agreement';
 
 -- Additional MM Application Attachement Information
-CREATE TABLE IF NOT EXISTS ah
+CREATE TABLE IF NOT EXISTS uls.ah
 (
       record_type		char(2)		     not null,
       unique_system_identifier  numeric(9,0)         null,
@@ -252,10 +255,10 @@ CREATE TABLE IF NOT EXISTS ah
       attachment_file_id        char(18)             null
 );
 
-COMMENT ON TABLE ah IS 'Additional MM Application Attachement Information';
+COMMENT ON TABLE uls.ah IS 'Additional MM Application Attachement Information';
 
 -- Amateur
-CREATE TABLE IF NOT EXISTS am
+CREATE TABLE IF NOT EXISTS uls.am
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -275,21 +278,21 @@ CREATE TABLE IF NOT EXISTS am
       previous_callsign         char(10)             null,
       previous_operator_class   char(1)              null,
       trustee_name              varchar(50)          null
-) ;
+);
 
-COMMENT ON TABLE am IS 'Amateur';
+COMMENT ON TABLE uls.am IS 'Amateur';
 
 -- Amateur Operator Class
-CREATE TABLE IF NOT EXISTS am_operator_class
+CREATE TABLE IF NOT EXISTS uls.am_operator_class
 (
 	class		CHAR(1)		UNIQUE PRIMARY KEY,
 	description	VARCHAR(16)
 );
 
-COMMENT ON TABLE am_operator_class IS 'Amateur Operator Class';
+COMMENT ON TABLE uls.am_operator_class IS 'Amateur Operator Class';
 
-TRUNCATE TABLE am_operator_class;
-INSERT INTO am_operator_class (operator_class, description) VALUES
+TRUNCATE TABLE uls.am_operator_class;
+INSERT INTO uls.am_operator_class (operator_class, description) VALUES
       ('A', 'Advanced'),
       ('E', 'Amateur Extra'),
       ('G', 'General'),
@@ -298,7 +301,7 @@ INSERT INTO am_operator_class (operator_class, description) VALUES
       ('T', 'Technician');
 
 -- Antenna
-CREATE TABLE IF NOT EXISTS an
+CREATE TABLE IF NOT EXISTS uls.an
 (
       record_type              	char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -340,11 +343,11 @@ CREATE TABLE IF NOT EXISTS an
       maximum_erp               numeric(15,3)        null
 );
 
-COMMENT ON TABLE an IS 'Antenna';
+COMMENT ON TABLE uls.an IS 'Antenna';
 
 
--- Appeal (???)
-CREATE TABLE IF NOT EXISTS ap
+-- Agreement Party
+CREATE TABLE IF NOT EXISTS uls.ap
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -360,10 +363,10 @@ CREATE TABLE IF NOT EXISTS ap
       fcc_reg_number	        char(10)	     null	
 );
 
-COMMENT ON TABLE ap IS 'Appeal (???)';
+COMMENT ON TABLE uls.ap IS 'Agreement Party';
 
--- Associated Callsign
-CREATE TABLE IF NOT EXISTS "as"
+-- Associated Call Signs
+CREATE TABLE IF NOT EXISTS uls.as
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         null,
@@ -376,10 +379,10 @@ CREATE TABLE IF NOT EXISTS "as"
       action_performed  	char(1)              null
 );
 
-COMMENT ON TABLE "as" IS 'Associated Callsign';
+COMMENT ON TABLE uls.as IS 'Associated Call Signs';
 
 -- Attachment
-CREATE TABLE IF NOT EXISTS at
+CREATE TABLE IF NOT EXISTS uls.at
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -392,10 +395,10 @@ CREATE TABLE IF NOT EXISTS at
       attachment_action_performed char(1)            null
 );
 
-COMMENT ON TABLE at IS 'Attachment';
+COMMENT ON TABLE uls.at IS 'Attachment';
 
 -- Broadcast Call Sign
-CREATE TABLE IF NOT EXISTS bc
+CREATE TABLE IF NOT EXISTS uls.bc
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -410,10 +413,10 @@ CREATE TABLE IF NOT EXISTS bc
       nonparent_type_code       char(1)              null
 );
 
-COMMENT ON TABLE bc IS 'Broadcast Call Sign';
+COMMENT ON TABLE uls.bc IS 'Broadcast Call Sign';
 
 -- Bidding Credit
-CREATE TABLE IF NOT EXISTS bd
+CREATE TABLE IF NOT EXISTS uls.bd
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -453,10 +456,10 @@ CREATE TABLE IF NOT EXISTS bd
       bc_spectrum_capacity char(1)	null
 );
 
-COMMENT ON TABLE bd IS 'Bidding Credit';
+COMMENT ON TABLE uls.bd IS 'Bidding Credit';
 
 -- BRS/EBS Specific Questions
-CREATE TABLE IF NOT EXISTS be
+CREATE TABLE IF NOT EXISTS uls.be
 (
       record_type                 char(2)              not null,
       unique_system_identifier    numeric(9,0)         not null,
@@ -470,10 +473,10 @@ CREATE TABLE IF NOT EXISTS be
 
 );
 
-COMMENT ON TABLE be IS 'BRS/EBS Specific Questions';
+COMMENT ON TABLE uls.be IS 'BRS/EBS Specific Questions';
 
 -- Buildout Frequency
-CREATE TABLE IF NOT EXISTS bf
+CREATE TABLE IF NOT EXISTS uls.bf
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -490,10 +493,10 @@ CREATE TABLE IF NOT EXISTS bf
       discontinuance_date             char(10)                  null
 );
 
-COMMENT ON TABLE bf IS 'Buildout Frequency';
+COMMENT ON TABLE uls.bf IS 'Buildout Frequency';
 
 -- Buildout Location
-CREATE TABLE IF NOT EXISTS bl
+CREATE TABLE IF NOT EXISTS uls.bl
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -507,10 +510,10 @@ CREATE TABLE IF NOT EXISTS bl
       discontinuance_date     char(10)                  null
 );
 
-COMMENT ON TABLE bl IS 'Buildout Location';
+COMMENT ON TABLE uls.bl IS 'Buildout Location';
 
 -- Buildout
-CREATE TABLE IF NOT EXISTS bo
+CREATE TABLE IF NOT EXISTS uls.bo
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -523,10 +526,10 @@ CREATE TABLE IF NOT EXISTS bo
       discontinuance_date     char(10)                  null
 );
 
-COMMENT ON TABLE bo IS 'Buildout';
+COMMENT ON TABLE uls.bo IS 'Buildout';
 
 -- Business Type
-CREATE TABLE IF NOT EXISTS bt
+CREATE TABLE IF NOT EXISTS uls.bt
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -536,10 +539,10 @@ CREATE TABLE IF NOT EXISTS bt
      			
 );
 
-COMMENT ON TABLE bt IS 'Business Type';
+COMMENT ON TABLE uls.bt IS 'Business Type';
 
 -- Close Bidding/Designated Entity Eligibility
-CREATE TABLE IF NOT EXISTS cd
+CREATE TABLE IF NOT EXISTS uls.cd
 (
 	record_type			char(2)		null,
 	unique_system_identifier	numeric(9,0)	not null,
@@ -553,10 +556,10 @@ CREATE TABLE IF NOT EXISTS cd
 	total_assets			money		null								
 );
 
-COMMENT ON TABLE cd IS 'Close Bidding/Designated Entity Eligibility';
+COMMENT ON TABLE uls.cd IS 'Close Bidding/Designated Entity Eligibility';
 
 -- Call Sign/File Number
-CREATE TABLE IF NOT EXISTS cf
+CREATE TABLE IF NOT EXISTS uls.cf
 (
       record_type                       char(2)              null,
       unique_system_identifier          numeric(9,0)         not null,
@@ -576,10 +579,10 @@ CREATE TABLE IF NOT EXISTS cf
       assign_callsign                   char(10)             null 
 );
 
-COMMENT ON TABLE cf IS 'Call Sign/File Number';
+COMMENT ON TABLE uls.cf IS 'Call Sign/File Number';
 
 -- Coast and Ground
-CREATE TABLE IF NOT EXISTS cg
+CREATE TABLE IF NOT EXISTS uls.cg
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         null,
@@ -626,10 +629,10 @@ CREATE TABLE IF NOT EXISTS cg
       status_date		timestamp(3)	     null
 );
 
-COMMENT ON TABLE cg IS 'Coast and Ground';
+COMMENT ON TABLE uls.cg IS 'Coast and Ground';
 
 -- Comments
-CREATE TABLE IF NOT EXISTS co
+CREATE TABLE IF NOT EXISTS uls.co
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -641,10 +644,10 @@ CREATE TABLE IF NOT EXISTS co
       status_date		timestamp(3)             null
 );
 
-COMMENT ON TABLE co IS 'Comments';
+COMMENT ON TABLE uls.co IS 'Comments';
 
 -- Control Point
-CREATE TABLE IF NOT EXISTS cp
+CREATE TABLE IF NOT EXISTS uls.cp
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -662,10 +665,10 @@ CREATE TABLE IF NOT EXISTS cp
       status_date		timestamp(3)	     null
 );
 
-COMMENT ON TABLE cp IS 'Control Point';
+COMMENT ON TABLE uls.cp IS 'Control Point';
 
--- Coser
-CREATE TABLE IF NOT EXISTS cs
+-- COSER
+CREATE TABLE IF NOT EXISTS uls.cs
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -681,10 +684,10 @@ CREATE TABLE IF NOT EXISTS cs
       status_date		timestamp(3)	     null
 );
 
-COMMENT ON TABLE cs IS 'Coser';
+COMMENT ON TABLE uls.cs IS 'COSER';
 
 -- Emission
-CREATE TABLE IF NOT EXISTS em
+CREATE TABLE IF NOT EXISTS uls.em
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -700,14 +703,14 @@ CREATE TABLE IF NOT EXISTS em
       digital_mod_type          char(255)            null,
       frequency_number          int                  null,
       status_code		char(1)		     null,
-     status_date		timestamp(3)	     null,
-     emission_sequence_id       int                  null
+      status_date		timestamp(3)	     null,
+      emission_sequence_id       int                  null
 );
 
-COMMENT ON TABLE em IS 'Emission';
+COMMENT ON TABLE uls.em IS 'Emission';
 
 -- Entity
-CREATE TABLE IF NOT EXISTS en
+CREATE TABLE IF NOT EXISTS uls.en
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -738,20 +741,20 @@ CREATE TABLE IF NOT EXISTS en
       status_date		timestamp(3)	     null
 );
 
-COMMENT ON TABLE en IS 'Entity';
+COMMENT ON TABLE uls.en IS 'Entity';
 
 -- Entity type
-CREATE TABLE IF NOT EXISTS en_entity_type
+CREATE TABLE IF NOT EXISTS uls.en_entity_type
 (
 	entity_type	CHAR(2)	UNIQUE PRIMARY KEY,
 	description	VARCHAR(40)
 );
 
-COMMENT ON TABLE en_entity_type IS 'Entity type';
+COMMENT ON TABLE uls.en_entity_type IS 'Entity type';
 
-TRUNCATE TABLE en_entity_type;
+TRUNCATE TABLE uls.en_entity_type;
 
-INSERT INTO en_entity_type (entity_type, description) VALUES
+INSERT INTO uls.en_entity_type (entity_type, description) VALUES
 	('CE', 'Transferee Contact'),
 	('CL', 'Licensee Contact'),
 	('CR', 'Assignor or Transferor Contact'),
@@ -763,18 +766,18 @@ INSERT INTO en_entity_type (entity_type, description) VALUES
 	('S', 'Lessee')
 ;
 
--- Entity Application Type Code
-CREATE TABLE IF NOT EXISTS en_applicant_type_code
+-- Applicant Type Code
+CREATE TABLE IF NOT EXISTS uls.en_applicant_type_code
 (
 	code	CHAR(1)	PRIMARY KEY,
 	description	VARCHAR(40),
 	active	BOOLEAN
 );
 
-COMMENT ON TABLE en_applicant_type_code IS 'Entity Application Type Code';
+COMMENT ON TABLE uls.en_applicant_type_code IS 'Entity Application Type Code';
 
-TRUNCATE TABLE en_application_type_code;
-INSERT INTO en_applicant_type_code (code, description, active) VALUES
+TRUNCATE TABLE uls.en_application_type_code;
+INSERT INTO uls.en_applicant_type_code (code, description, active) VALUES
 	('B','Amateur Club',true),
 	('C','Corporation',true),
 	('D','General Partnership',true),
@@ -794,13 +797,13 @@ INSERT INTO en_applicant_type_code (code, description, active) VALUES
 ;
 
 -- Status code
-CREATE TABLE IF NOT EXISTS status_code
+CREATE TABLE IF NOT EXISTS uls.status_code
 (
 	code	CHAR(1) NULL,
 	description	VARCHAR(20)
 );
 
-COMMENT ON TABLE status_code IS 'Status Code';
+COMMENT ON TABLE uls.status_code IS 'Status Code';
 
 /* Status Code appears on the following record types:
  * EN, MW, CG, LM, CO, AS, SC, SF, BO, CP, LS, LO, LF, OP, BL, AN, RC, FR, F2,
@@ -808,15 +811,16 @@ COMMENT ON TABLE status_code IS 'Status Code';
  * F6, P2, TP
 */	
 
-TRUNCATE TABLE status_code;
-INSERT INTO status_code (code, description) VALUES
+TRUNCATE TABLE uls.status_code;
+INSERT INTO uls.status_code (code, description) VALUES
 	(NULL, 'Active'),
+	('', 'Active'),
 	('X', 'Termination Pending'),
 	('T', 'Terminated')
 ;
 
 -- Additional Frequency Information
-CREATE TABLE IF NOT EXISTS f2
+CREATE TABLE IF NOT EXISTS uls.f2
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -838,10 +842,10 @@ CREATE TABLE IF NOT EXISTS f2
       trans_meth                char(1)              null
 );
 
-COMMENT ON TABLE f2 IS 'Additional Frequency Information';
+COMMENT ON TABLE uls.f2 IS 'Additional Frequency Information';
 
 -- FRC Admin
-CREATE TABLE IF NOT EXISTS fa
+CREATE TABLE IF NOT EXISTS uls.fa
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         null,
@@ -860,10 +864,10 @@ CREATE TABLE IF NOT EXISTS fa
       proof_of_passing          char(1)              null 
 );
 
-COMMENT ON TABLE fa IS 'FRC Admin';
+COMMENT ON TABLE uls.fa IS 'FRC [Restricted & Commercial Operator]';
 
 -- Frequency Coordination
-CREATE TABLE IF NOT EXISTS fc
+CREATE TABLE IF NOT EXISTS uls.fc
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -876,10 +880,10 @@ CREATE TABLE IF NOT EXISTS fc
       action_performed          char(1)              null
 );
 
-COMMENT ON TABLE fc IS 'Frequency Coordination';
+COMMENT ON TABLE uls.fc IS 'Frequency Coordination';
 
 -- Frequency Fee Form Special Condition
-CREATE TABLE IF NOT EXISTS ff
+CREATE TABLE IF NOT EXISTS uls.ff
 (
       record_type               char(2)              null ,
       unique_system_identifier  numeric(9,0)         null ,
@@ -896,10 +900,10 @@ CREATE TABLE IF NOT EXISTS ff
       status_date		timestamp(3)	     null
 );
 
-COMMENT ON TABLE ff IS 'Frequency Fee Form Special Condition';
+COMMENT ON TABLE uls.ff IS 'Frequency Fee Form Special Condition';
 
 -- Frequency
-CREATE TABLE IF NOT EXISTS fr
+CREATE TABLE IF NOT EXISTS uls.fr
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -933,10 +937,10 @@ CREATE TABLE IF NOT EXISTS fr
       date_first_used		timestamp(3)	     null
 );
 
-COMMENT ON TABLE fr IS 'Frequency';
+COMMENT ON TABLE uls.fr IS 'Frequency';
 
 -- Frequency Special Condition
-CREATE TABLE IF NOT EXISTS fs
+CREATE TABLE IF NOT EXISTS uls.fs
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -952,10 +956,10 @@ CREATE TABLE IF NOT EXISTS fs
       
 );
 
-COMMENT ON TABLE fs IS 'Frequency Special Condition';
+COMMENT ON TABLE uls.fs IS 'Frequency Special Condition';
 
 -- Frequency Type
-CREATE TABLE IF NOT EXISTS ft
+CREATE TABLE IF NOT EXISTS uls.ft
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -970,10 +974,10 @@ CREATE TABLE IF NOT EXISTS ft
       frequency_type_code       char(2)              null
 );
 
-COMMENT ON TABLE ft IS 'Frequency Type';
+COMMENT ON TABLE uls.ft IS 'Frequency Type';
 
--- Application / License Header
-CREATE TABLE IF NOT EXISTS hd
+-- Application License/Header
+CREATE TABLE IF NOT EXISTS uls.hd
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -1032,19 +1036,19 @@ CREATE TABLE IF NOT EXISTS hd
       regulatory_compliance_ind char(1)              null
 );
 
-COMMENT ON TABLE hd IS 'Application / License Header';
+COMMENT ON TABLE uls.hd IS 'Application License/Header';
 
 -- License Status
-CREATE TABLE IF NOT EXISTS hd_license_status
+CREATE TABLE IF NOT EXISTS uls.hd_license_status
 (
 	status	CHAR(1)	UNIQUE PRIMARY KEY,
 	description	VARCHAR(40)	NOT NULL
 );
 
-COMMENT ON TABLE hd_license_status IS 'License Status';
+COMMENT ON TABLE uls.hd_license_status IS 'License Status';
 
-TRUNCATE TABLE hd_license_status;
-INSERT INTO hd_license_status (status, description) VALUES
+TRUNCATE TABLE uls.hd_license_status;
+INSERT INTO uls.hd_license_status (status, description) VALUES
 	('A', 'Active'),
 	('C', 'Canceled'),
 	('E', 'Expired'),
@@ -1055,16 +1059,16 @@ INSERT INTO hd_license_status (status, description) VALUES
 ;
 
 -- Developmental/STA/Demonstration License
-CREATE TABLE IF NOT EXISTS hd_devel_sta
+CREATE TABLE IF NOT EXISTS uls.hd_devel_sta
 (
 	status	CHAR(1)	UNIQUE PRIMARY KEY,
 	description VARCHAR(100) NOT NULL
 );
 
-COMMENT ON TABLE hd_devel_sta IS 'Developmental/STA/Demonstration License';
+COMMENT ON TABLE uls.hd_devel_sta IS 'Developmental/STA/Demonstration License';
 
-TRUNCATE TABLE hd_devel_sta;
-INSERT INTO hd_devel_sta (status, description) VALUES
+TRUNCATE TABLE uls.hd_devel_sta;
+INSERT INTO uls.hd_devel_sta (status, description) VALUES
 	('D', 'Developmental'),
 	('M', 'Demonstration'),
 	('N', 'Regular'),
@@ -1072,7 +1076,7 @@ INSERT INTO hd_devel_sta (status, description) VALUES
 ;
 
 -- History
-CREATE TABLE IF NOT EXISTS hs
+CREATE TABLE IF NOT EXISTS uls.hs
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -1082,19 +1086,19 @@ CREATE TABLE IF NOT EXISTS hs
       code                      char(6)              null
 );
 
-COMMENT ON TABLE hs IS 'History';
+COMMENT ON TABLE uls.hs IS 'History';
 
 -- History code
-CREATE TABLE IF NOT EXISTS hs_code
+CREATE TABLE IF NOT EXISTS uls.hs_code
 (
 	code	CHAR(6)	PRIMARY KEY,
 	description VARCHAR(80) NOT NULL
 );
 
-COMMENT ON TABLE hs_code IS 'History Code';
+COMMENT ON TABLE uls.hs_code IS 'History Code';
 
-TRUNCATE TABLE hs_code;
-INSERT INTO hs_code (code, description) VALUES
+TRUNCATE TABLE uls.hs_code;
+INSERT INTO uls.hs_code (code, description) VALUES
 	('10MCOM', '10 MHz Geographic Overlap Review Completed'),
 	('172COM', 'Review of Channel 172 Completed'),
 	('20COM', '2065/2079 Review Completed'),
@@ -1562,7 +1566,7 @@ INSERT INTO hs_code (code, description) VALUES
 
 
 -- International Address
-CREATE TABLE IF NOT EXISTS ia
+CREATE TABLE IF NOT EXISTS uls.ia
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -1578,10 +1582,10 @@ CREATE TABLE IF NOT EXISTS ia
       international_fax         char(20)             null
 );
 
-COMMENT ON TABLE ia IS 'International Address';
+COMMENT ON TABLE uls.ia IS 'International Address';
 
 -- IRAC
-CREATE TABLE IF NOT EXISTS ir
+CREATE TABLE IF NOT EXISTS uls.ir
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -1599,10 +1603,10 @@ CREATE TABLE IF NOT EXISTS ir
       a_irac_status_code 	smallint     	     null
 );
 
-COMMENT ON TABLE ir IS 'IRAC';
+COMMENT ON TABLE uls.ir IS 'IRAC';
 
 -- License Attachment
-CREATE TABLE IF NOT EXISTS la
+CREATE TABLE IF NOT EXISTS uls.la
  (
       record_type               char(2)              null ,
       unique_system_identifier  numeric(9,0)         null ,
@@ -1614,10 +1618,10 @@ CREATE TABLE IF NOT EXISTS la
       action_performed          char(1)              null
 );
 
-COMMENT ON TABLE la IS 'License Attachment';
+COMMENT ON TABLE uls.la IS 'License Attachment';
 
 -- Additional Location Data
-CREATE TABLE IF NOT EXISTS l2
+CREATE TABLE IF NOT EXISTS uls.l2
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -1636,10 +1640,10 @@ CREATE TABLE IF NOT EXISTS l2
       status_date		timestamp(3)	     null
 );
 
-COMMENT ON TABLE ls IS 'Additonal Location Data';
+COMMENT ON TABLE uls.ls IS 'Additonal Location Data';
 
 -- Location Free Form Special Condition
-CREATE TABLE IF NOT EXISTS lf
+CREATE TABLE IF NOT EXISTS uls.lf
  (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         null,
@@ -1653,10 +1657,10 @@ CREATE TABLE IF NOT EXISTS lf
       status_date		timestamp(3)	     null
 );
 
-COMMENT ON TABLE lf IS 'Location Free Form Special Condition';
+COMMENT ON TABLE uls.lf IS 'Location Free Form Special Condition';
 
 -- Additional MM License Attachment Information
-CREATE TABLE IF NOT EXISTS lh
+CREATE TABLE IF NOT EXISTS uls.lh
 (
       record_type		char(2)		     not null,
       unique_system_identifier  numeric(9,0)         null,
@@ -1665,10 +1669,10 @@ CREATE TABLE IF NOT EXISTS lh
       attachment_file_id        char(18)             null
 );
 
-COMMENT ON TABLE lh IS 'Additional MM License Attachment Information';
+COMMENT ON TABLE uls.lh IS 'Additional MM License Attachment Information';
 
 -- Land Mobile Administration
-CREATE TABLE IF NOT EXISTS lm
+CREATE TABLE IF NOT EXISTS uls.lm
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         null,
@@ -1681,10 +1685,10 @@ CREATE TABLE IF NOT EXISTS lm
       status_date		timestamp(3)	     null
 );
 
-COMMENT ON TABLE lm IS 'Land Mobile Administration';
+COMMENT ON TABLE uls.lm IS 'Land Mobile Administration';
 
 -- Location
-CREATE TABLE IF NOT EXISTS lo
+CREATE TABLE IF NOT EXISTS uls.lo
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -1739,10 +1743,10 @@ CREATE TABLE IF NOT EXISTS lo
       earth_agree               char(1)              null
 );
 
-COMMENT ON TABLE lo IS 'Location';
+COMMENT ON TABLE uls.lo IS 'Location';
 
 -- Location Special Condition
-CREATE TABLE IF NOT EXISTS ls
+CREATE TABLE IF NOT EXISTS uls.ls
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -1754,10 +1758,10 @@ CREATE TABLE IF NOT EXISTS ls
       status_date		timestamp(3)	     null
 );
 
-COMMENT ON TABLE ls IS 'Location Special Condition';
+COMMENT ON TABLE uls.ls IS 'Location Special Condition';
 
 -- Market Coordinate
-CREATE TABLE IF NOT EXISTS mc
+CREATE TABLE IF NOT EXISTS uls.mc
 (
       record_type               		char(2)              null,
       unique_system_identifier  		numeric(9,0)         not null,
@@ -1777,10 +1781,10 @@ CREATE TABLE IF NOT EXISTS mc
 	  undefined_partitioned_area		int					 null
 );
 
-COMMENT ON TABLE mc IS 'Market Coordinate';
+COMMENT ON TABLE uls.mc IS 'Market Coordinate';
 
 -- MEA Number
-CREATE TABLE IF NOT EXISTS me
+CREATE TABLE IF NOT EXISTS uls.me
 (
       record_type              	char(2)              not null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -1791,10 +1795,10 @@ CREATE TABLE IF NOT EXISTS me
       action_performed		 	char(1)	      		 null 
 );
 
-COMMENT ON TABLE me IS 'MEA Number';
+COMMENT ON TABLE uls.me IS 'MEA Number';
 
 -- Channel Plan Information
-CREATE TABLE IF NOT EXISTS mh
+CREATE TABLE IF NOT EXISTS uls.mh
 (
       record_type                char(2)            not null,
       unique_system_identifier 	 numeric(9,0)       not null,
@@ -1807,10 +1811,10 @@ CREATE TABLE IF NOT EXISTS mh
 
 );
 
-COMMENT ON TABLE mh IS 'Channel Plan Information';
+COMMENT ON TABLE uls.mh IS 'Channel Plan Information';
 
 -- Market Frequency
-CREATE TABLE IF NOT EXISTS mf
+CREATE TABLE IF NOT EXISTS uls.mf
 (
       record_type               char(2)        	null,
       unique_system_identifier  numeric(9,0)   	not null,
@@ -1824,10 +1828,10 @@ CREATE TABLE IF NOT EXISTS mf
 	  defined_partition_area 	char(6)		null
 );
 
-COMMENT ON TABLE mf IS 'Market Frequency';
+COMMENT ON TABLE uls.mf IS 'Market Frequency';
 
 -- MDS / ITFS Administration
-CREATE TABLE IF NOT EXISTS mi
+CREATE TABLE IF NOT EXISTS uls.mi
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         null,
@@ -1839,10 +1843,10 @@ CREATE TABLE IF NOT EXISTS mi
       license_type_code         char(1)              null
 );
 
-COMMENT ON TABLE mi IS 'MDS / ITFS Administration';
+COMMENT ON TABLE uls.mi IS 'MDS / ITFS Administration';
 
 -- Market
-CREATE TABLE IF NOT EXISTS mk
+CREATE TABLE IF NOT EXISTS uls.mk
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -1868,10 +1872,10 @@ CREATE TABLE IF NOT EXISTS mk
       claiming_unserved_area	char(1)              null
 );
 
-COMMENT ON TABLE mk IS 'Market';
+COMMENT ON TABLE uls.mk IS 'Market';
 
 -- Market Partition
-CREATE TABLE IF NOT EXISTS mp
+CREATE TABLE IF NOT EXISTS uls.mp
 (
       record_type            		char(2)         null,
       unique_system_identifier 		numeric(9,0)    not null,
@@ -1886,16 +1890,16 @@ CREATE TABLE IF NOT EXISTS mp
       action_performed				char(1)         null,
       census_figures              	int				null,
       def_undef_ind					char(1)			null,
-	  partition_sequence_number 	int 			null,
-	  whitespace_ind 	        char(1) 		null
+	partition_sequence_number 	int 			null,
+	whitespace_ind 	        char(1) 		null
 	  
 );
 
-COMMENT ON TABLE mp IS 'Market Partition';
+COMMENT ON TABLE uls.mp IS 'Market Partition';
 
 
 -- Microwave
-CREATE TABLE IF NOT EXISTS mw
+CREATE TABLE IF NOT EXISTS uls.mw
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -1913,10 +1917,10 @@ CREATE TABLE IF NOT EXISTS mw
       status_date		timestamp(3)	     null
 );
 
-COMMENT ON TABLE mw IS 'Microwave';
+COMMENT ON TABLE uls.mw IS 'Microwave';
 
 -- Area of Operation Text
-CREATE TABLE IF NOT EXISTS op
+CREATE TABLE IF NOT EXISTS uls.op
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -1930,10 +1934,10 @@ CREATE TABLE IF NOT EXISTS op
       status_date		timestamp(3)	     null
 );
 
-COMMENT ON TABLE op IS 'Area of Operation Text';
+COMMENT ON TABLE uls.op IS 'Area of Operation Text';
 
 -- Microwave Path
-CREATE TABLE IF NOT EXISTS pa
+CREATE TABLE IF NOT EXISTS uls.pa
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -1959,10 +1963,10 @@ CREATE TABLE IF NOT EXISTS pa
 	status_date		timestamp(3)		null
 );
 
-COMMENT ON TABLE pa IS 'Microwave Path';
+COMMENT ON TABLE uls.pa IS 'Microwave Path';
 
 -- Points of Communication
-CREATE TABLE IF NOT EXISTS pc
+CREATE TABLE IF NOT EXISTS uls.pc
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -1989,10 +1993,10 @@ CREATE TABLE IF NOT EXISTS pc
 	status_date		timestamp(3)		null
 );
 
-COMMENT ON TABLE pc IS 'Points of Communication';
+COMMENT ON TABLE uls.pc IS 'Points of Communication';
 
 -- Radial
-CREATE TABLE IF NOT EXISTS ra
+CREATE TABLE IF NOT EXISTS uls.ra
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2014,10 +2018,10 @@ CREATE TABLE IF NOT EXISTS ra
 	status_date		timestamp(3)		null
 );
 
-COMMENT ON TABLE ra IS 'Radial';
+COMMENT ON TABLE uls.ra IS 'Radial';
 
 -- Reciever
-CREATE TABLE IF NOT EXISTS rc
+CREATE TABLE IF NOT EXISTS uls.rc
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2035,10 +2039,10 @@ CREATE TABLE IF NOT EXISTS rc
 	status_date		timestamp(3)		null
 );
 
-COMMENT ON TABLE rc IS 'Receiver';
+COMMENT ON TABLE uls.rc IS 'Receiver';
 
 -- Reason
-CREATE TABLE IF NOT EXISTS re
+CREATE TABLE IF NOT EXISTS uls.re
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2047,10 +2051,10 @@ CREATE TABLE IF NOT EXISTS re
       reason                    varchar(255)         null
 );
 
-COMMENT ON TABLE re IS 'Reason';
+COMMENT ON TABLE uls.re IS 'Reason';
 
 -- Revenue Information
-CREATE TABLE IF NOT EXISTS ri
+CREATE TABLE IF NOT EXISTS uls.ri
 (
 	record_type               	char(2)              	not null,
      	unique_system_identifier  	numeric(9,0)         	not null,
@@ -2066,11 +2070,11 @@ CREATE TABLE IF NOT EXISTS ri
         in_existence                    char(1)                 null
 );
 
-COMMENT ON TABLE ri IS 'Revenue Information';
+COMMENT ON TABLE uls.ri IS 'Revenue Information';
 
 
 -- Recieve Zone
-CREATE TABLE IF NOT EXISTS rz
+CREATE TABLE IF NOT EXISTS uls.rz
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2084,10 +2088,10 @@ CREATE TABLE IF NOT EXISTS rz
       receive_zone              char(6)              null
 );
 
-COMMENT ON TABLE rz IS 'Recieve Zone';
+COMMENT ON TABLE uls.rz IS 'Recieve Zone';
 
 -- Special Condition
-CREATE TABLE IF NOT EXISTS sc
+CREATE TABLE IF NOT EXISTS uls.sc
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2100,10 +2104,10 @@ CREATE TABLE IF NOT EXISTS sc
 	status_date		timestamp(3)		null
 );
 
-COMMENT ON TABLE sc IS 'Special Condition';
+COMMENT ON TABLE uls.sc IS 'Special Condition';
 
 -- Ship Exemption
-CREATE TABLE IF NOT EXISTS se
+CREATE TABLE IF NOT EXISTS uls.se
 (
       record_type              char(2)               null,
       unique_system_identifier numeric(9,0)          null,
@@ -2149,10 +2153,10 @@ CREATE TABLE IF NOT EXISTS se
       description_of_other     varchar(50)           null
 );
 
-COMMENT ON TABLE se IS 'Ship Exemption';
+COMMENT ON TABLE uls.se IS 'Ship Exemption';
 
 -- License Free Form Special Condition
-CREATE TABLE IF NOT EXISTS sf
+CREATE TABLE IF NOT EXISTS uls.sf
 (
       record_type               char(2)              null ,
       unique_system_identifier  numeric(9,0)         null ,
@@ -2167,10 +2171,10 @@ CREATE TABLE IF NOT EXISTS sf
 	status_date		timestamp(3)		null
 );
 
-COMMENT ON TABLE sf IS 'License Free Form Special Condition';
+COMMENT ON TABLE uls.sf IS 'License Free Form Special Condition';
 
 -- Microwave Segments
-CREATE TABLE IF NOT EXISTS sg
+CREATE TABLE IF NOT EXISTS uls.sg
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2189,10 +2193,10 @@ CREATE TABLE IF NOT EXISTS sg
 	status_date		timestamp(3)		null
 );
 
-COMMENT ON TABLE sg IS 'Microwave Segments';
+COMMENT ON TABLE uls.sg IS 'Microwave Segments';
 
 -- Ship
-CREATE TABLE IF NOT EXISTS sh
+CREATE TABLE IF NOT EXISTS uls.sh
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         null,
@@ -2223,10 +2227,10 @@ CREATE TABLE IF NOT EXISTS sh
       required_cat_e            char(1)              null
 );
 
-COMMENT ON TABLE sh IS 'Ship';
+COMMENT ON TABLE uls.sh IS 'Ship';
 
 -- SIDS
-CREATE TABLE IF NOT EXISTS si
+CREATE TABLE IF NOT EXISTS uls.si
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2237,10 +2241,10 @@ CREATE TABLE IF NOT EXISTS si
       action_performed          char(1)              null
 );
 
-COMMENT ON TABLE si IS 'SIDS';
+COMMENT ON TABLE uls.si IS 'SIDS';
 
 -- Ship Rescue Administration
-CREATE TABLE IF NOT EXISTS sr
+CREATE TABLE IF NOT EXISTS uls.sr
 (
       record_type               char(2)             null,
       unique_system_identifier	numeric(9,0)	    not null,
@@ -2265,10 +2269,10 @@ CREATE TABLE IF NOT EXISTS sr
       vessel_capacity           numeric(6,0)        null
 );
 
-COMMENT ON TABLE sr IS 'Ship Rescue Administration';
+COMMENT ON TABLE uls.sr IS 'Ship Rescue Administration';
 
 -- Sector
-CREATE TABLE IF NOT EXISTS st
+CREATE TABLE IF NOT EXISTS uls.st
 (
       record_type               char(2)             null,
       unique_system_identifier  numeric(9,0)        not null,
@@ -2286,10 +2290,10 @@ CREATE TABLE IF NOT EXISTS st
       status_date               timestamp(3)            null
 );
 
-COMMENT ON TABLE st IS 'Sector';
+COMMENT ON TABLE uls.st IS 'Sector';
 
 -- Ship Voyage
-CREATE TABLE IF NOT EXISTS sv
+CREATE TABLE IF NOT EXISTS uls.sv
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         null,
@@ -2300,10 +2304,10 @@ CREATE TABLE IF NOT EXISTS sv
       voyage_description        varchar(255)         null
 );
 
-COMMENT ON TABLE sv IS 'Ship Voyage';
+COMMENT ON TABLE uls.sv IS 'Ship Voyage';
 
 -- Transfer / Assign
-CREATE TABLE IF NOT EXISTS ta
+CREATE TABLE IF NOT EXISTS uls.ta
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2319,11 +2323,11 @@ CREATE TABLE IF NOT EXISTS ta
       assignor_certifier_last_name char(20)          null,
       assignor_certifier_suffix varchar(3)           null,
       assignor_certifier_title  varchar(40)          null,
-      assignee_gross_rev_1      money                null, /* No longer used */
-      assignee_gross_rev_2      money                null, /* No longer used */
-      assignee_gross_rev_3      money                null, /* No longer used */
-      assignee_tot_assets       money                null, /* No longer used */
-      same_small_category       char(1)              null, /* No longer used */
+      assignee_gross_rev_1      money                null, -- No Longer Used
+      assignee_gross_rev_2      money                null, -- No Longer Used
+      assignee_gross_rev_3      money                null, -- No Longer Used
+      assignee_tot_assets       money                null, -- No Longer Used
+      same_small_category       char(1)              null, -- No Longer Used
       applying_for_installments char(1)              null,
       notification_of_forebearance char(1)           null,
       wireless_need_approval    char(1)              null,
@@ -2361,15 +2365,15 @@ CREATE TABLE IF NOT EXISTS ta
       seek_rural_bc char(1) null
 );
 
-COMMENT ON TABLE ta IS 'Transfer / Assign';
-COMMENT ON COLUMN ta.assignee_gross_rev_1 IS '/* No Longer Used */';
-COMMENT ON COLUMN ta.assignee_gross_rev_2 IS '/* No Longer Used */';
-COMMENT ON COLUMN ta.assignee_gross_rev_3 IS '/* No Longer Used */';
-COMMENT ON COLUMN ta.assignee_tot_assets IS '/* No Longer Used */';
-COMMENT ON COLUMN ta.same_small_category IS '/* No Longer Used */';
+COMMENT ON TABLE uls.ta IS 'Transfer / Assign';
+COMMENT ON COLUMN uls.ta.assignee_gross_rev_1 IS '-- No Longer Used';
+COMMENT ON COLUMN uls.ta.assignee_gross_rev_2 IS '-- No Longer Used';
+COMMENT ON COLUMN uls.ta.assignee_gross_rev_3 IS '-- No Longer Used';
+COMMENT ON COLUMN uls.ta.assignee_tot_assets IS '-- No Longer Used';
+COMMENT ON COLUMN uls.ta.same_small_category IS '-- No Longer Used';
 
 -- Tribal Land
-CREATE TABLE IF NOT EXISTS tl
+CREATE TABLE IF NOT EXISTS uls.tl
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         null,
@@ -2385,10 +2389,10 @@ CREATE TABLE IF NOT EXISTS tl
       square_kilometers         numeric(8,0)         null
 );
 
-COMMENT ON TABLE tl IS 'Tribal Land';
+COMMENT ON TABLE uls.tl IS 'Tribal Land';
 
 -- Cellular Unserved Area
-CREATE TABLE IF NOT EXISTS ua
+CREATE TABLE IF NOT EXISTS uls.ua
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         null,
@@ -2403,10 +2407,10 @@ CREATE TABLE IF NOT EXISTS ua
       claiming_unserved_area    char(1)              null
 );
 
-COMMENT ON TABLE ua IS 'Cellular Unserved Area';
+COMMENT ON TABLE uls.ua IS 'Cellular Unserved Area';
 
 -- Vanity Call Sign
-CREATE TABLE IF NOT EXISTS vc
+CREATE TABLE IF NOT EXISTS uls.vc
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2416,10 +2420,10 @@ CREATE TABLE IF NOT EXISTS vc
       callsign_requested        char(10)             null
 );
 
-COMMENT ON TABLE vc IS 'Vanity Call Sign';
+COMMENT ON TABLE uls.vc IS 'Vanity Call Sign';
 
 -- Lease Classification
-CREATE TABLE IF NOT EXISTS lc
+CREATE TABLE IF NOT EXISTS uls.lc
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2432,10 +2436,10 @@ CREATE TABLE IF NOT EXISTS lc
       
 );
 
-COMMENT ON TABLE lc IS 'Lease Classification';
+COMMENT ON TABLE uls.lc IS 'Lease Classification';
 
 -- Lease Dates
-CREATE TABLE IF NOT EXISTS ld
+CREATE TABLE IF NOT EXISTS uls.ld
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2448,10 +2452,10 @@ CREATE TABLE IF NOT EXISTS ld
       lease_never_comm_ind      char(1)              null
 );
 
-COMMENT ON TABLE ld IS 'Lease Dates';
+COMMENT ON TABLE uls.ld IS 'Lease Dates';
 
 -- Lease Link
-CREATE TABLE IF NOT EXISTS ll
+CREATE TABLE IF NOT EXISTS uls.ll
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2459,14 +2463,14 @@ CREATE TABLE IF NOT EXISTS ll
       ebf_number                varchar(30)          null,
       call_sign			char(10)             null,		
       lease_id			char(10)             null,      
-      unique_system_identifier_2   numeric(9,0)         null     /*(the licensee) */
+      unique_system_identifier_2   numeric(9,0)         null     -- (the licensee)
 );
 
-COMMENT ON TABLE ll IS 'Lease Link';
-COMMENT ON COLUMN ll.unique_system_identifier_2 IS '/* (the licensee) */';
+COMMENT ON TABLE uls.ll IS 'Lease Link';
+COMMENT ON COLUMN uls.ll.unique_system_identifier_2 IS '-- (the licensee)';
 
 -- Leased Location
-CREATE TABLE IF NOT EXISTS l3
+CREATE TABLE IF NOT EXISTS uls.l3
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2522,10 +2526,10 @@ CREATE TABLE IF NOT EXISTS l3
       status_date		timestamp(3)		null
 );
 
-COMMENT ON TABLE l3 IS 'Leased Location';
+COMMENT ON TABLE uls.l3 IS 'Leased Location';
 
 -- Additional Leased Location
-CREATE TABLE IF NOT EXISTS l4
+CREATE TABLE IF NOT EXISTS uls.l4
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2546,10 +2550,10 @@ CREATE TABLE IF NOT EXISTS l4
 	status_date		timestamp(3)	     null
 );
 
-COMMENT ON TABLE l4 IS 'Additional Leased Location';
+COMMENT ON TABLE uls.l4 IS 'Additional Leased Location';
 
 -- Leased Location Area of Operation
-CREATE TABLE IF NOT EXISTS o2
+CREATE TABLE IF NOT EXISTS uls.o2
 (
       record_type               char(2)              not null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2565,10 +2569,10 @@ CREATE TABLE IF NOT EXISTS o2
       status_date		timestamp(3)		null
 );
 
-COMMENT ON TABLE o2 IS 'Leased Location Area of Operation';
+COMMENT ON TABLE uls.o2 IS 'Leased Location Area of Operation';
 
 -- Leased Location Canned Special Conditions
-CREATE TABLE IF NOT EXISTS l5
+CREATE TABLE IF NOT EXISTS uls.l5
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2584,10 +2588,10 @@ CREATE TABLE IF NOT EXISTS l5
       status_date		timestamp(3)		null
 );
 
-COMMENT ON TABLE l5 IS 'Leased Location Canned Special Conditions';
+COMMENT ON TABLE uls.l5 IS 'Leased Location Canned Special Conditions';
 
 -- Leased Location Free Form Special Conditions
-CREATE TABLE IF NOT EXISTS l6
+CREATE TABLE IF NOT EXISTS uls.l6
  (
       record_type               char(2)              null ,
       unique_system_identifier  numeric(9,0)         null ,
@@ -2605,10 +2609,10 @@ CREATE TABLE IF NOT EXISTS l6
       status_date		timestamp(3)		null
 );
 
-COMMENT ON TABLE l6 IS 'Leased Location Free Form Special Conditions';
+COMMENT ON TABLE uls.l6 IS 'Leased Location Free Form Special Conditions';
 
 -- Leased Antenna
-CREATE TABLE IF NOT EXISTS a3
+CREATE TABLE IF NOT EXISTS uls.a3
 (
       record_type              	 char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2650,10 +2654,10 @@ CREATE TABLE IF NOT EXISTS a3
 	status_date		timestamp(3)		null      
 );
 
-COMMENT ON TABLE a3 IS 'Leased Antenna';
+COMMENT ON TABLE uls.a3 IS 'Leased Antenna';
 
 -- Leased Frequency
-CREATE TABLE IF NOT EXISTS f3
+CREATE TABLE IF NOT EXISTS uls.f3
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2688,10 +2692,10 @@ CREATE TABLE IF NOT EXISTS f3
 	status_date		timestamp(3)		null      
 );
 
-COMMENT ON TABLE f3 IS 'Leased Frequency';
+COMMENT ON TABLE uls.f3 IS 'Leased Frequency';
 
 -- Additional Leased Frequency
-CREATE TABLE IF NOT EXISTS f4
+CREATE TABLE IF NOT EXISTS uls.f4
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2715,10 +2719,10 @@ CREATE TABLE IF NOT EXISTS f4
 	status_date		timestamp(3)	     null
 );
 
-COMMENT ON TABLE f4 IS 'Additonal Leased Frequency';
+COMMENT ON TABLE uls.f4 IS 'Additonal Leased Frequency';
 
 -- Leased Frequency Canned Special Conditions
-CREATE TABLE IF NOT EXISTS f5
+CREATE TABLE IF NOT EXISTS uls.f5
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2735,7 +2739,7 @@ CREATE TABLE IF NOT EXISTS f5
 	status_date		timestamp(3)		null
 );
 
-COMMENT ON TABLE f5 IS 'Leased Frequency Canned Special Conditions';
+COMMENT ON TABLE uls.f5 IS 'Leased Frequency Canned Special Conditions';
 
 -- Leased Frequency Free Form Special Conditions
 CREATE TABLE IF NOT EXISTS f6
@@ -2759,10 +2763,10 @@ CREATE TABLE IF NOT EXISTS f6
       status_date		timestamp(3)		null
 );
 
-COMMENT ON TABLE f6 IS 'Leased Frequency Free Form Special Conditions';
+COMMENT ON TABLE uls.f6 IS 'Leased Frequency Free Form Special Conditions';
 
 -- Leased Microwave Path
-CREATE TABLE IF NOT EXISTS p2
+CREATE TABLE IF NOT EXISTS uls.p2
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,
@@ -2790,10 +2794,10 @@ CREATE TABLE IF NOT EXISTS p2
 	status_date		timestamp(3)		null
 );
 
-COMMENT ON TABLE p2 IS 'Leased Microwave Path';
+COMMENT ON TABLE uls.p2 IS 'Leased Microwave Path';
 
 -- Transmission Method or Protocol
-CREATE TABLE IF NOT EXISTS tp
+CREATE TABLE IF NOT EXISTS uls.tp
 (
       record_type               char(2)              null,
       unique_system_identifier  numeric(9,0)         not null,

@@ -1,4 +1,8 @@
-CREATE TABLE IF NOT EXISTS TOWER_PUBACC_AT
+-- Antenna Structure Registration (ASR)
+CREATE SCHEMA IF NOT EXISTS asr;
+
+-- Attachments
+CREATE TABLE IF NOT EXISTS asr.at
 (
 	record_type               char(2)              null,
 	content_indicator         char(3)              null,
@@ -8,11 +12,10 @@ CREATE TABLE IF NOT EXISTS TOWER_PUBACC_AT
 	attachment_code           char(1)              null,
 	description               varchar(60)          null,
 	date                      char(10)             null
-)
+);
 
-go
-
-CREATE TABLE IF NOT EXISTS TOWER_PUBACC_CO
+-- Tower Coordinates
+CREATE TABLE IF NOT EXISTS asr.co
 (
 	record_type               char(2)              null,
 	content_indicator         char(3)              null,
@@ -30,14 +33,12 @@ CREATE TABLE IF NOT EXISTS TOWER_PUBACC_CO
 	longitude_seconds         numeric(4,1)         null,
 	longitude_direction       char(1)              null,
 	longitude_total_seconds   numeric(8,1)         null,
-        array_tower_position      int                  null,
-        array_total_tower         int                  null 
+    array_tower_position      int                  null,
+    array_total_tower         int                  null
+);
 
-)
-
-go
-
-CREATE TABLE IF NOT EXISTS TOWER_PUBACC_DE
+-- Determinations
+CREATE TABLE IF NOT EXISTS asr.de
 (
 	record_type               char(2)              null,
 	faa_study_number          varchar(20)          not null,
@@ -69,32 +70,32 @@ CREATE TABLE IF NOT EXISTS TOWER_PUBACC_DE
 	suffix                    char(3)              null,
 	faa_emi_flag              char(1)              null,
 	version                   int                  null
-)
+);
 
-go
 
-CREATE TABLE IF NOT EXISTS TOWER_PUBACC_DP
+-- Determination Painting and Lighting Data
+CREATE TABLE IF NOT EXISTS asr.dp
 (
 	record_type               char(2)              null,
 	faa_study_number          varchar(20)          not null,
 	faa_chapter_code          varchar(14)          null,
 	specification_option      int                  null
-)
+);
 
-go
 
-CREATE TABLE IF NOT EXISTS TOWER_PUBACC_DR
+-- FAA Determination Remarks
+CREATE TABLE IF NOT EXISTS asr.dr
 (
 	record_type               char(2)              null,
 	faa_study_number          varchar(20)          not null,
 	date_keyed                char(10)             null,
 	sequence_number           int                  null,
 	remark_text               varchar(255)         null
-)
+);
 
-go
 
-CREATE TABLE IF NOT EXISTS TOWER_PUBACC_EN
+-- Entity
+CREATE TABLE IF NOT EXISTS asr.en
 (
 	record_type               char(2)              null,
 	content_indicator         char(3)              null,
@@ -120,12 +121,12 @@ CREATE TABLE IF NOT EXISTS TOWER_PUBACC_EN
 	state                     char(2)              null,
 	zip_code                  char(9)              null,
 	attention                 varchar(35)          null,
-        frn                       char(10)             null       
-)
+    frn                       char(10)             null       
+);
 
-go
 
-CREATE TABLE IF NOT EXISTS TOWER_PUBACC_HS
+-- History
+CREATE TABLE IF NOT EXISTS asr.hs
 (
 	record_type               char(2)              null,
 	content_indicator         char(3)              null,
@@ -134,66 +135,66 @@ CREATE TABLE IF NOT EXISTS TOWER_PUBACC_HS
 	unique_system_identifier  numeric(9,0)         not null,
 	date                      char(10)             null,
 	description               varchar(50)          null
-)
+);
 
-go
 
-CREATE TABLE IF NOT EXISTS TOWER_PUBACC_RA
+-- Registration Data
+CREATE TABLE IF NOT EXISTS asr.ra
 (
-	RECORD_TYPE               char(2)              null,
-	CONTENT_INDICATOR         char(3)              null,
-	FILE_NUMBER               char(8)              null,
-	REGISTRATION_NUMBER       char(7)              null,
-	UNIQUE_SYSTEM_IDENTIFIER  numeric(9,0)         not null,
-	APPLICATION_PURPOSE       char(2)              null,
-	PREVIOUS_PURPOSE          char(2)              null,
-	INPUT_SOURCE_CODE         char(1)              null,
-	STATUS_CODE               char(1)              null,
-	DATE_ENTERED              char(10)             null,
-	DATE_RECEIVED             char(10)             null,
-	DATE_ISSUED               char(10)             null,
-	DATE_CONSTRUCTED          char(10)             null,
-	DATE_DISMANTLED           char(10)             null,
-	DATE_ACTION               char(10)             null,
-	ARCHIVE_FLAG_CODE         char(1)              null,
-	VERSION                   int                  null,
-	SIGNATURE_FIRST_NAME      varchar(20)          null,
-	SIGNATURE_MIDDLE_INITIAL  char(1)              null,
-	SIGNATURE_LAST_NAME       varchar(20)          null,
-	SIGNATURE_SUFFIX          varchar(3)           null,
-	SIGNATURE_TITLE           varchar(40)          null,
-	INVALID_SIGNATURE         char(1)              null,
-	STRUCTURE_STREET_ADDRESS  varchar(80)          null,
-	STRUCTURE_CITY            varchar(20)          null,
-	STRUCTURE_STATE_CODE      char(2)              null,
-	COUNTY_CODE		  char(5)	       null,
-	ZIP_CODE		  varchar(9)           null,
-	HEIGHT_OF_STRUCTURE       numeric(5,1)         null,
-	GROUND_ELEVATION          numeric(6,1)         null,
-	OVERALL_HEIGHT_ABOVE_GROUND numeric(6,1)       null,
-	OVERALL_HEIGHT_AMSL       numeric(6,1)         null,
-	STRUCTURE_TYPE            char(7)              null,
-	DATE_FAA_DETERMINATION_ISSUED char(10)         null,
-	FAA_STUDY_NUMBER          varchar(20)          null,
-	FAA_CIRCULAR_NUMBER       varchar(10)          null,
-	SPECIFICATION_OPTION      int                  null,
-	PAINTING_AND_LIGHTING     varchar(100)         null,
-	MARK_LIGHT_CODE		  varchar(2)	       null,
-	MARK_LIGHT_OTHER	  varchar(30)	       null,
-	FAA_EMI_FLAG              char(1)              null,
-	NEPA_FLAG                 char(1)              null,
-	DATE_SIGNED               char(10)             null,
+	record_type               char(2)              null,
+	content_indicator         char(3)              null,
+	file_number               char(8)              null,
+	registration_number       char(7)              null,
+	unique_system_identifier  numeric(9,0)         not null,
+	application_purpose       char(2)              null,
+	previous_purpose          char(2)              null,
+	input_source_code         char(1)              null,
+	status_code               char(1)              null,
+	date_entered              char(10)             null,
+	date_received             char(10)             null,
+	date_issued               char(10)             null,
+	date_constructed          char(10)             null,
+	date_dismantled           char(10)             null,
+	date_action               char(10)             null,
+	archive_flag_code         char(1)              null,
+	version                   int                  null,
+	signature_first_name      varchar(20)          null,
+	signature_middle_initial  char(1)              null,
+	signature_last_name       varchar(20)          null,
+	signature_suffix          varchar(3)           null,
+	signature_title           varchar(40)          null,
+	invalid_signature         char(1)              null,
+	structure_street_address  varchar(80)          null,
+	structure_city            varchar(20)          null,
+	structure_state_code      char(2)              null,
+	county_code		  char(5)	       null,
+	zip_code		  varchar(9)           null,
+	height_of_structure       numeric(5,1)         null,
+	ground_elevation          numeric(6,1)         null,
+	overall_height_above_ground numeric(6,1)       null,
+	overall_height_amsl       numeric(6,1)         null,
+	structure_type            char(7)              null,
+	date_faa_determination_issued char(10)         null,
+	faa_study_number          varchar(20)          null,
+	faa_circular_number       varchar(10)          null,
+	specification_option      int                  null,
+	painting_and_lighting     varchar(100)         null,
+	mark_light_code			  varchar(2)	       null,
+	mark_light_other		  varchar(30)	       null,
+	faa_emi_flag              char(1)              null,
+	nepa_flag                 char(1)              null,
+	date_signed               char(10)             null,
 	signature_last_or    	  varchar(20)          null,
 	signature_first_or    	  varchar(20)          null,
 	signature_mi_or           char(1)              null,
 	signature_suffix_or       varchar(3)           null,
 	title_signed_or           varchar(40)          null,
 	date_signed_or            char(10)             null
-)
+);
 
-go
 
-CREATE TABLE IF NOT EXISTS TOWER_PUBACC_RE
+-- Remarks
+CREATE TABLE IF NOT EXISTS asr.re
 (
 	record_type               char(2)              null,
 	content_indicator         char(3)              null,
@@ -204,11 +205,11 @@ CREATE TABLE IF NOT EXISTS TOWER_PUBACC_RE
 	date_keyed                char(10)             null,
 	sequence_number           int                  null,
 	remark_text               varchar(255)         null
-)
+);
 
-go
 
-CREATE TABLE IF NOT EXISTS TOWER_PUBACC_RS
+-- Reason
+CREATE TABLE IF NOT EXISTS asr.rs
 (
 	record_type               char(2)              null,
 	content_indicator         char(3)              null,
@@ -219,11 +220,11 @@ CREATE TABLE IF NOT EXISTS TOWER_PUBACC_RS
 	reason_description        varchar(50)          null,
 	reason_comment            varchar(255)         null,
 	reason_date               char(10)             null
-)
+);
 
-go
 
-CREATE TABLE IF NOT EXISTS TOWER_PUBACC_SC
+-- Special Conditions
+CREATE TABLE IF NOT EXISTS asr.sc
 (
 	record_type               char(2)              null,
 	content_indicator         char(3)              null,
@@ -233,13 +234,11 @@ CREATE TABLE IF NOT EXISTS TOWER_PUBACC_SC
 	date_keyed                char(10)             null,
 	sequence_number           int                  null,
 	remark_text               varchar(255)         null
-)
-
-go
+);
 
 
-
-CREATE TABLE IF NOT EXISTS TOWER_PUBACC_EC
+-- Environmental Compliance
+CREATE TABLE IF NOT EXISTS asr.ec
 (
 	record_type               char(2)              null,
 	content_indicator         char(3)              null,
@@ -250,11 +249,9 @@ CREATE TABLE IF NOT EXISTS TOWER_PUBACC_EC
 	other_federal_flag        char(1)              null,
 	fed_lands_type            char(1)              null,			
 	fed_agency_name           varchar(55)	       null,	
-	national_notice_date      datetime	       null,
-	env_assessment_flag	  char(1)	       null,
+	national_notice_date      timestamp	       null,
+	env_assessment_flag		  char(1)	       null,
 	env_cert_flag             char(1)	       null,
 	env_cert_basis            char(1)	       null,
-	local_notice_date         datetime             null
-)
-
-go
+	local_notice_date         timestamp             null
+);
