@@ -201,31 +201,31 @@ INSERT INTO uls.application_source (source, description) VALUES
 ;
 
 -- Application Change Type (Major/Minor Indicator)
-CREATE TABLE IF NOT EXISTS uls.change_type
+CREATE TABLE IF NOT EXISTS uls.application_change_type
 (
-	change_type	CHAR(1)	UNIQUE PRIMARY KEY,
+	type	CHAR(1)	UNIQUE PRIMARY KEY,
 	description	CHAR(5)	NOT NULL
 );
 
-COMMENT ON TABLE uls.change_type IS 'Application Change Type (Major/Minor Indicator)';
+COMMENT ON TABLE uls.application_change_type IS 'Application Change Type (Major/Minor Indicator)';
 
-TRUNCATE TABLE uls.change_type;
-INSERT INTO uls.change_type (change_type, description) VALUES
+TRUNCATE TABLE uls.application_change_type;
+INSERT INTO uls.application_change_type (type, description) VALUES
 	('J', 'Major'),
 	('N', 'Minor')
 ;	
 
 -- Application Use of Service Code
-CREATE TABLE IF NOT EXISTS uls.use_of_service
+CREATE TABLE IF NOT EXISTS uls.use_of_service_code
 (
-	use		CHAR(1)	UNIQUE PRIMARY KEY,
+	code		CHAR(1)	UNIQUE PRIMARY KEY,
 	description	VARCHAR(255)	NOT NULL
 );
 
-COMMENT ON TABLE uls.use_of_service IS 'Application Use of Service Code';
+COMMENT ON TABLE uls.use_of_service_code IS 'Application Use of Service Code';
 
-TRUNCATE TABLE uls.use_of_service;
-INSERT INTO uls.use_of_service (use, description) VALUES
+TRUNCATE TABLE uls.use_of_service_code;
+INSERT INTO uls.use_of_service_code (code, description) VALUES
 	('C', 'Geographic area license used to provide service to customers'),
 	('P', 'License is used for private business (internal) purposes or to meet the licensee''s public safety communications needs')
 ;
@@ -285,16 +285,16 @@ CREATE TABLE IF NOT EXISTS uls.am
 COMMENT ON TABLE uls.am IS 'Amateur';
 
 -- Amateur Operator Class
-CREATE TABLE IF NOT EXISTS uls.operator_class
+CREATE TABLE IF NOT EXISTS uls.amateur_operator_class
 (
 	class		CHAR(1)		UNIQUE PRIMARY KEY,
 	description	VARCHAR(16)
 );
 
-COMMENT ON TABLE uls.operator_class IS 'Amateur Operator Class';
+COMMENT ON TABLE uls.amateur_operator_class IS 'Amateur Operator Class';
 
-TRUNCATE TABLE uls.operator_class;
-INSERT INTO uls.operator_class (operator_class, description) VALUES
+TRUNCATE TABLE uls.amateur_operator_class;
+INSERT INTO uls.amateur_operator_class (operator_class, description) VALUES
       ('A', 'Advanced'),
       ('E', 'Amateur Extra'),
       ('G', 'General'),
@@ -778,7 +778,7 @@ CREATE TABLE IF NOT EXISTS uls.applicant_type_code
 
 COMMENT ON TABLE uls.applicant_type_code IS 'Entity Application Type Code';
 
-TRUNCATE TABLE uls.application_type_code;
+TRUNCATE TABLE uls.applicant_type_code;
 INSERT INTO uls.applicant_type_code (code, description, active) VALUES
 	('B','Amateur Club',true),
 	('C','Corporation',true),
@@ -1061,16 +1061,16 @@ INSERT INTO uls.license_status (status, description) VALUES
 ;
 
 -- Developmental/STA/Demonstration License
-CREATE TABLE IF NOT EXISTS uls.devel_sta
+CREATE TABLE IF NOT EXISTS uls.license_type
 (
-	status	CHAR(1)	UNIQUE PRIMARY KEY,
+	type	CHAR(1)	UNIQUE PRIMARY KEY,
 	description VARCHAR(100) NOT NULL
 );
 
-COMMENT ON TABLE uls.devel_sta IS 'Developmental/STA/Demonstration License';
+COMMENT ON TABLE uls.license_type IS 'Developmental/STA/Demonstration License';
 
-TRUNCATE TABLE uls.devel_sta;
-INSERT INTO uls.devel_sta (status, description) VALUES
+TRUNCATE TABLE uls.license_type;
+INSERT INTO uls.license_type (type, description) VALUES
 	('D', 'Developmental'),
 	('M', 'Demonstration'),
 	('N', 'Regular'),
@@ -2839,8 +2839,8 @@ ALTER TABLE ONLY uls.application_status
 -- Name: ad_change_type ad_change_type_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
 --
 
-ALTER TABLE ONLY uls.change_type
-    ADD CONSTRAINT change_type_pkey PRIMARY KEY (change_type);
+ALTER TABLE ONLY uls.application_change_type
+    ADD CONSTRAINT application_change_type_pkey PRIMARY KEY (type);
 
 
 --
@@ -2863,16 +2863,16 @@ ALTER TABLE ONLY uls.application_source
 -- Name: ad_use_of_service ad_use_of_service_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
 --
 
-ALTER TABLE ONLY uls.use_of_service
-    ADD CONSTRAINT ad_use_of_service_pkey PRIMARY KEY (use);
+ALTER TABLE ONLY uls.use_of_service_code
+    ADD CONSTRAINT ad_use_of_service_code_pkey PRIMARY KEY (code);
 
 
 --
 -- Name: am_operator_class am_operator_class_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
 --
 
-ALTER TABLE ONLY uls.operator_class
-    ADD CONSTRAINT operator_class_pkey PRIMARY KEY (operator_class);
+ALTER TABLE ONLY uls.amateur_operator_class
+    ADD CONSTRAINT amateur_operator_class_pkey PRIMARY KEY (class);
 
 
 --
@@ -2888,15 +2888,15 @@ ALTER TABLE ONLY uls.applicant_type_code
 --
 
 ALTER TABLE ONLY uls.entity_type
-    ADD CONSTRAINT entity_type_pkey PRIMARY KEY (entity_type);
+    ADD CONSTRAINT entity_type_pkey PRIMARY KEY (type);
 
 
 --
 -- Name: hd_devel_sta hd_devel_sta_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
 --
 
-ALTER TABLE ONLY uls.devel_sta
-    ADD CONSTRAINT devel_sta_pkey PRIMARY KEY (status);
+ALTER TABLE ONLY uls.license_type
+    ADD CONSTRAINT license_type PRIMARY KEY (type);
 
 
 --
