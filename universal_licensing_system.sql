@@ -1,6 +1,8 @@
 -- Universal Licensing System (ULS)
 CREATE SCHEMA IF NOT EXISTS uls;
 
+\SET search_path TO uls;
+
 -- Additional Appliction Detail
 CREATE TABLE IF NOT EXISTS uls.a2
 (
@@ -84,16 +86,16 @@ CREATE TABLE IF NOT EXISTS uls.ad
 COMMENT ON TABLE uls.ad IS 'Application Detail';
 
 -- Application Purpose
-CREATE TABLE IF NOT EXISTS uls.ad_application_purpose
+CREATE TABLE IF NOT EXISTS uls.application_purpose
 (
 	purpose		CHAR(2)		UNIQUE PRIMARY KEY,
 	description	VARCHAR(40)	NOT NULL
 );
 
-COMMENT ON TABLE uls.ad_application_purpose IS 'Application Purpose';
+COMMENT ON TABLE uls.application_purpose IS 'Application Purpose';
 
-TRUNCATE TABLE uls.ad_application_purpose;
-INSERT INTO uls.ad_application_purpose (purpose, description) VALUES
+TRUNCATE TABLE uls.application_purpose;
+INSERT INTO uls.application_purpose (purpose, description) VALUES
 	('AA', 'Assignment of Authorization'),
 	('AM', 'Amendment'),
 	('AR', 'DE Annual Report'),
@@ -123,16 +125,16 @@ INSERT INTO uls.ad_application_purpose (purpose, description) VALUES
 ;
 
 -- Application Status
-CREATE TABLE IF NOT EXISTS uls.ad_application_status
+CREATE TABLE IF NOT EXISTS uls.application_status
 (
 	status	CHAR(1)		UNIQUE PRIMARY KEY,
 	description VARCHAR(40)	NOT NULL
 );
 
-COMMENT ON TABLE uls.ad_application_status IS 'Application Status';
+COMMENT ON TABLE uls.application_status IS 'Application Status';
 
-TRUNCATE TABLE uls.ad_application_status;
-INSERT INTO uls.ad_application_status (status, description) VALUES
+TRUNCATE TABLE uls.application_status;
+INSERT INTO uls.application_status (status, description) VALUES
 	('1', 'Submitted'),
 	('2', 'Pending'),
 	('A', 'A Granted'),
@@ -158,16 +160,16 @@ INSERT INTO uls.ad_application_status (status, description) VALUES
 ;
 
 -- Application Notification Code
-CREATE TABLE IF NOT EXISTS uls.ad_notification_code
+CREATE TABLE IF NOT EXISTS uls.notification_code
 (
 	code 		CHAR(1)		UNIQUE PRIMARY KEY,
 	description	VARCHAR(250)	NOT NULL
 );
 
-COMMENT ON TABLE uls.ad_notification_code IS 'Application Notification Code';
+COMMENT ON TABLE uls.notification_code IS 'Application Notification Code';
 
-TRUNCATE TABLE uls.ad_notification_code;
-INSERT INTO uls.ad_notification_code (code, description) VALUES
+TRUNCATE TABLE uls.notification_code;
+INSERT INTO uls.notification_code (code, description) VALUES
 	('1', 'First Buildout/Coverage Requirement'),
 	('2', 'Second Buildout/Coverage Requirement'),
 	('3', 'Third Buildout/Coverage Requirement'),
@@ -183,47 +185,47 @@ INSERT INTO uls.ad_notification_code (code, description) VALUES
 ;
 
 -- Application Source
-CREATE TABLE IF NOT EXISTS uls.ad_source
+CREATE TABLE IF NOT EXISTS uls.application_source
 (
 	source		CHAR(1)		UNIQUE PRIMARY KEY,
 	description	VARCHAR(50)	NOT NULL
 );
 
-COMMENT ON TABLE uls.ad_source IS 'Application Source';
+COMMENT ON TABLE uls.application_source IS 'Application Source';
 
-TRUNCATE TABLE uls.ad_source;
-INSERT INTO uls.ad_source (source, description) VALUES
+TRUNCATE TABLE uls.application_source;
+INSERT INTO uls.application_source (source, description) VALUES
 	('B', 'Batch Filed'),
 	('I', 'Interactively Filed (external to FCC)'),
 	('M', 'Manually Keyed by FCC')
 ;
 
 -- Application Change Type (Major/Minor Indicator)
-CREATE TABLE IF NOT EXISTS uls.ad_change_type
+CREATE TABLE IF NOT EXISTS uls.change_type
 (
 	change_type	CHAR(1)	UNIQUE PRIMARY KEY,
 	description	CHAR(5)	NOT NULL
 );
 
-COMMENT ON TABLE uls.ad_change_type IS 'Application Change Type (Major/Minor Indicator)';
+COMMENT ON TABLE uls.change_type IS 'Application Change Type (Major/Minor Indicator)';
 
-TRUNCATE TABLE uls.ad_change_type;
-INSERT INTO uls.ad_change_type (change_type, description) VALUES
+TRUNCATE TABLE uls.change_type;
+INSERT INTO uls.change_type (change_type, description) VALUES
 	('J', 'Major'),
 	('N', 'Minor')
 ;	
 
 -- Application Use of Service Code
-CREATE TABLE IF NOT EXISTS uls.ad_use_of_service
+CREATE TABLE IF NOT EXISTS uls.use_of_service
 (
 	use		CHAR(1)	UNIQUE PRIMARY KEY,
 	description	VARCHAR(255)	NOT NULL
 );
 
-COMMENT ON TABLE uls.ad_use_of_service IS 'Application Use of Service Code';
+COMMENT ON TABLE uls.use_of_service IS 'Application Use of Service Code';
 
-TRUNCATE TABLE uls.ad_use_of_service;
-INSERT INTO uls.ad_use_of_service (use, description) VALUES
+TRUNCATE TABLE uls.use_of_service;
+INSERT INTO uls.use_of_service (use, description) VALUES
 	('C', 'Geographic area license used to provide service to customers'),
 	('P', 'License is used for private business (internal) purposes or to meet the licensee''s public safety communications needs')
 ;
@@ -283,16 +285,16 @@ CREATE TABLE IF NOT EXISTS uls.am
 COMMENT ON TABLE uls.am IS 'Amateur';
 
 -- Amateur Operator Class
-CREATE TABLE IF NOT EXISTS uls.am_operator_class
+CREATE TABLE IF NOT EXISTS uls.operator_class
 (
 	class		CHAR(1)		UNIQUE PRIMARY KEY,
 	description	VARCHAR(16)
 );
 
-COMMENT ON TABLE uls.am_operator_class IS 'Amateur Operator Class';
+COMMENT ON TABLE uls.operator_class IS 'Amateur Operator Class';
 
-TRUNCATE TABLE uls.am_operator_class;
-INSERT INTO uls.am_operator_class (operator_class, description) VALUES
+TRUNCATE TABLE uls.operator_class;
+INSERT INTO uls.operator_class (operator_class, description) VALUES
       ('A', 'Advanced'),
       ('E', 'Amateur Extra'),
       ('G', 'General'),
@@ -744,17 +746,17 @@ CREATE TABLE IF NOT EXISTS uls.en
 COMMENT ON TABLE uls.en IS 'Entity';
 
 -- Entity type
-CREATE TABLE IF NOT EXISTS uls.en_entity_type
+CREATE TABLE IF NOT EXISTS uls.entity_type
 (
 	entity_type	CHAR(2)	UNIQUE PRIMARY KEY,
 	description	VARCHAR(40)
 );
 
-COMMENT ON TABLE uls.en_entity_type IS 'Entity type';
+COMMENT ON TABLE uls.entity_type IS 'Entity type';
 
-TRUNCATE TABLE uls.en_entity_type;
+TRUNCATE TABLE uls.entity_type;
 
-INSERT INTO uls.en_entity_type (entity_type, description) VALUES
+INSERT INTO uls.entity_type (entity_type, description) VALUES
 	('CE', 'Transferee Contact'),
 	('CL', 'Licensee Contact'),
 	('CR', 'Assignor or Transferor Contact'),
@@ -767,17 +769,17 @@ INSERT INTO uls.en_entity_type (entity_type, description) VALUES
 ;
 
 -- Applicant Type Code
-CREATE TABLE IF NOT EXISTS uls.en_applicant_type_code
+CREATE TABLE IF NOT EXISTS uls.applicant_type_code
 (
 	code	CHAR(1)	PRIMARY KEY,
 	description	VARCHAR(40),
 	active	BOOLEAN
 );
 
-COMMENT ON TABLE uls.en_applicant_type_code IS 'Entity Application Type Code';
+COMMENT ON TABLE uls.applicant_type_code IS 'Entity Application Type Code';
 
-TRUNCATE TABLE uls.en_application_type_code;
-INSERT INTO uls.en_applicant_type_code (code, description, active) VALUES
+TRUNCATE TABLE uls.application_type_code;
+INSERT INTO uls.applicant_type_code (code, description, active) VALUES
 	('B','Amateur Club',true),
 	('C','Corporation',true),
 	('D','General Partnership',true),
@@ -1039,16 +1041,16 @@ CREATE TABLE IF NOT EXISTS uls.hd
 COMMENT ON TABLE uls.hd IS 'Application License/Header';
 
 -- License Status
-CREATE TABLE IF NOT EXISTS uls.hd_license_status
+CREATE TABLE IF NOT EXISTS uls.license_status
 (
 	status	CHAR(1)	UNIQUE PRIMARY KEY,
 	description	VARCHAR(40)	NOT NULL
 );
 
-COMMENT ON TABLE uls.hd_license_status IS 'License Status';
+COMMENT ON TABLE uls.license_status IS 'License Status';
 
-TRUNCATE TABLE uls.hd_license_status;
-INSERT INTO uls.hd_license_status (status, description) VALUES
+TRUNCATE TABLE uls.license_status;
+INSERT INTO uls.license_status (status, description) VALUES
 	('A', 'Active'),
 	('C', 'Canceled'),
 	('E', 'Expired'),
@@ -1059,16 +1061,16 @@ INSERT INTO uls.hd_license_status (status, description) VALUES
 ;
 
 -- Developmental/STA/Demonstration License
-CREATE TABLE IF NOT EXISTS uls.hd_devel_sta
+CREATE TABLE IF NOT EXISTS uls.devel_sta
 (
 	status	CHAR(1)	UNIQUE PRIMARY KEY,
 	description VARCHAR(100) NOT NULL
 );
 
-COMMENT ON TABLE uls.hd_devel_sta IS 'Developmental/STA/Demonstration License';
+COMMENT ON TABLE uls.devel_sta IS 'Developmental/STA/Demonstration License';
 
-TRUNCATE TABLE uls.hd_devel_sta;
-INSERT INTO uls.hd_devel_sta (status, description) VALUES
+TRUNCATE TABLE uls.devel_sta;
+INSERT INTO uls.devel_sta (status, description) VALUES
 	('D', 'Developmental'),
 	('M', 'Demonstration'),
 	('N', 'Regular'),
@@ -1089,16 +1091,16 @@ CREATE TABLE IF NOT EXISTS uls.hs
 COMMENT ON TABLE uls.hs IS 'History';
 
 -- History code
-CREATE TABLE IF NOT EXISTS uls.hs_code
+CREATE TABLE IF NOT EXISTS uls.history_code
 (
 	code	CHAR(6)	PRIMARY KEY,
 	description VARCHAR(80) NOT NULL
 );
 
-COMMENT ON TABLE uls.hs_code IS 'History Code';
+COMMENT ON TABLE uls.history_code IS 'History Code';
 
-TRUNCATE TABLE uls.hs_code;
-INSERT INTO uls.hs_code (code, description) VALUES
+TRUNCATE TABLE uls.history_code;
+INSERT INTO uls.history_code (code, description) VALUES
 	('10MCOM', '10 MHz Geographic Overlap Review Completed'),
 	('172COM', 'Review of Channel 172 Completed'),
 	('20COM', '2065/2079 Review Completed'),
@@ -2742,7 +2744,7 @@ CREATE TABLE IF NOT EXISTS uls.f5
 COMMENT ON TABLE uls.f5 IS 'Leased Frequency Canned Special Conditions';
 
 -- Leased Frequency Free Form Special Conditions
-CREATE TABLE IF NOT EXISTS f6
+CREATE TABLE IF NOT EXISTS uls.f6
 (
       record_type               char(2)              null ,
       unique_system_identifier  numeric(9,0)         null ,
@@ -2815,4 +2817,169 @@ CREATE TABLE IF NOT EXISTS uls.tp
       status_date		timestamp(3)		null
 );
 
-COMMENT ON TABLE tp IS 'Transmission Method or Protocol';
+COMMENT ON TABLE uls.tp IS 'Transmission Method or Protocol';
+
+--
+-- Name: ad_application_purpose ad_application_purpose_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
+--
+
+ALTER TABLE ONLY uls.application_purpose
+    ADD CONSTRAINT application_purpose_pkey PRIMARY KEY (purpose);
+
+
+--
+-- Name: ad_application_status ad_application_status_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
+--
+
+ALTER TABLE ONLY uls.application_status
+    ADD CONSTRAINT application_status_pkey PRIMARY KEY (status);
+
+
+--
+-- Name: ad_change_type ad_change_type_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
+--
+
+ALTER TABLE ONLY uls.change_type
+    ADD CONSTRAINT change_type_pkey PRIMARY KEY (change_type);
+
+
+--
+-- Name: ad_notification_code ad_notification_code_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
+--
+
+ALTER TABLE ONLY uls.notification_code
+    ADD CONSTRAINT notification_code_pkey PRIMARY KEY (code);
+
+
+--
+-- Name: ad_source ad_source_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
+--
+
+ALTER TABLE ONLY uls.application_source
+    ADD CONSTRAINT application_source_pkey PRIMARY KEY (source);
+
+
+--
+-- Name: ad_use_of_service ad_use_of_service_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
+--
+
+ALTER TABLE ONLY uls.use_of_service
+    ADD CONSTRAINT ad_use_of_service_pkey PRIMARY KEY (use);
+
+
+--
+-- Name: am_operator_class am_operator_class_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
+--
+
+ALTER TABLE ONLY uls.operator_class
+    ADD CONSTRAINT operator_class_pkey PRIMARY KEY (operator_class);
+
+
+--
+-- Name: en_applicant_type_code en_applicant_type_code_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
+--
+
+ALTER TABLE ONLY uls.applicant_type_code
+    ADD CONSTRAINT applicant_type_code_pkey PRIMARY KEY (code);
+
+
+--
+-- Name: en_entity_type en_entity_type_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
+--
+
+ALTER TABLE ONLY uls.entity_type
+    ADD CONSTRAINT entity_type_pkey PRIMARY KEY (entity_type);
+
+
+--
+-- Name: hd_devel_sta hd_devel_sta_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
+--
+
+ALTER TABLE ONLY uls.devel_sta
+    ADD CONSTRAINT devel_sta_pkey PRIMARY KEY (status);
+
+
+--
+-- Name: hd_license_status hd_license_status_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
+--
+
+ALTER TABLE ONLY uls.license_status
+    ADD CONSTRAINT license_status_pkey PRIMARY KEY (status);
+
+
+--
+-- Name: hs_code hs_code_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
+--
+
+ALTER TABLE ONLY uls.history_code
+    ADD CONSTRAINT history_code_pkey PRIMARY KEY (code);
+
+
+--
+-- Name: am_callsign_idx; Type: INDEX; Schema: uls; Owner: pubacc
+--
+
+CREATE INDEX am_callsign_idx ON uls.am USING btree (callsign);
+
+
+--
+-- Name: am_unique_system_identifier_idx; Type: INDEX; Schema: uls; Owner: pubacc
+--
+
+CREATE INDEX am_unique_system_identifier_idx ON uls.am USING btree (unique_system_identifier);
+
+
+--
+-- Name: en_entity_name_idx; Type: INDEX; Schema: uls; Owner: pubacc
+--
+
+CREATE INDEX en_entity_name_idx ON uls.en USING btree (entity_name);
+
+
+--
+-- Name: en_unique_system_identifier_idx; Type: INDEX; Schema: uls; Owner: pubacc
+--
+
+CREATE INDEX en_unique_system_identifier_idx ON uls.en USING btree (unique_system_identifier);
+
+
+--
+-- Name: en_usi_callsign_idx; Type: INDEX; Schema: uls; Owner: pubacc
+--
+
+CREATE INDEX en_usi_callsign_idx ON uls.en USING btree (unique_system_identifier, call_sign);
+
+
+--
+-- Name: hs_callsign_idx; Type: INDEX; Schema: uls; Owner: pubacc
+--
+
+CREATE INDEX hs_callsign_idx ON uls.hs USING btree (callsign);
+
+
+--
+-- Name: hs_unique_system_identifier_idx; Type: INDEX; Schema: uls; Owner: pubacc
+--
+
+CREATE INDEX hs_unique_system_identifier_idx ON uls.hs USING btree (unique_system_identifier);
+
+
+--
+-- Name: vc_callsign_requested_idx; Type: INDEX; Schema: uls; Owner: pubacc
+--
+
+CREATE INDEX vc_callsign_requested_idx ON uls.vc USING btree (callsign_requested);
+
+
+--
+-- Name: vc_callsign_usi_idx; Type: INDEX; Schema: uls; Owner: pubacc
+--
+
+CREATE INDEX vc_callsign_usi_idx ON uls.vc USING btree (callsign_requested, unique_system_identifier);
+
+
+--
+-- Name: vc_unique_system_identifieridx; Type: INDEX; Schema: uls; Owner: pubacc
+--
+
+CREATE INDEX vc_unique_system_identifier_idx ON uls.vc USING btree (unique_system_identifier);
