@@ -234,7 +234,7 @@ CREATE TABLE IF NOT EXISTS asr.rs
 	reason_date               char(10)             null
 );
 
-COMMENT ON TABLE asr.re IS 'Reason';
+COMMENT ON TABLE asr.rs IS 'Reason';
 
 -- Special Conditions
 CREATE TABLE IF NOT EXISTS asr.sc
