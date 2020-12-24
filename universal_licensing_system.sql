@@ -2819,167 +2819,71 @@ CREATE TABLE IF NOT EXISTS uls.tp
 
 COMMENT ON TABLE uls.tp IS 'Transmission Method or Protocol';
 
---
--- Name: ad_application_purpose ad_application_purpose_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
---
 
 ALTER TABLE ONLY uls.application_purpose
     ADD CONSTRAINT application_purpose_pkey PRIMARY KEY (purpose);
 
 
---
--- Name: ad_application_status ad_application_status_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
---
-
 ALTER TABLE ONLY uls.application_status
     ADD CONSTRAINT application_status_pkey PRIMARY KEY (status);
 
-
---
--- Name: ad_change_type ad_change_type_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
---
 
 ALTER TABLE ONLY uls.application_change_type
     ADD CONSTRAINT application_change_type_pkey PRIMARY KEY (type);
 
 
---
--- Name: ad_notification_code ad_notification_code_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
---
-
 ALTER TABLE ONLY uls.notification_code
     ADD CONSTRAINT notification_code_pkey PRIMARY KEY (code);
 
-
---
--- Name: ad_source ad_source_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
---
 
 ALTER TABLE ONLY uls.application_source
     ADD CONSTRAINT application_source_pkey PRIMARY KEY (source);
 
 
---
--- Name: ad_use_of_service ad_use_of_service_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
---
-
 ALTER TABLE ONLY uls.use_of_service_code
     ADD CONSTRAINT ad_use_of_service_code_pkey PRIMARY KEY (code);
 
-
---
--- Name: am_operator_class am_operator_class_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
---
 
 ALTER TABLE ONLY uls.amateur_operator_class
     ADD CONSTRAINT amateur_operator_class_pkey PRIMARY KEY (class);
 
 
---
--- Name: en_applicant_type_code en_applicant_type_code_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
---
-
 ALTER TABLE ONLY uls.applicant_type_code
     ADD CONSTRAINT applicant_type_code_pkey PRIMARY KEY (code);
 
-
---
--- Name: en_entity_type en_entity_type_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
---
 
 ALTER TABLE ONLY uls.entity_type
     ADD CONSTRAINT entity_type_pkey PRIMARY KEY (type);
 
 
---
--- Name: hd_devel_sta hd_devel_sta_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
---
-
 ALTER TABLE ONLY uls.license_type
     ADD CONSTRAINT license_type PRIMARY KEY (type);
 
-
---
--- Name: hd_license_status hd_license_status_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
---
 
 ALTER TABLE ONLY uls.license_status
     ADD CONSTRAINT license_status_pkey PRIMARY KEY (status);
 
 
---
--- Name: hs_code hs_code_pkey; Type: CONSTRAINT; Schema: uls; Owner: pubacc
---
-
 ALTER TABLE ONLY uls.history_code
     ADD CONSTRAINT history_code_pkey PRIMARY KEY (code);
 
 
---
--- Name: am_callsign_idx; Type: INDEX; Schema: uls; Owner: pubacc
---
-
 CREATE INDEX am_callsign_idx ON uls.am USING btree (callsign);
-
-
---
--- Name: am_unique_system_identifier_idx; Type: INDEX; Schema: uls; Owner: pubacc
---
 
 CREATE INDEX am_unique_system_identifier_idx ON uls.am USING btree (unique_system_identifier);
 
-
---
--- Name: en_entity_name_idx; Type: INDEX; Schema: uls; Owner: pubacc
---
-
 CREATE INDEX en_entity_name_idx ON uls.en USING btree (entity_name);
-
-
---
--- Name: en_unique_system_identifier_idx; Type: INDEX; Schema: uls; Owner: pubacc
---
 
 CREATE INDEX en_unique_system_identifier_idx ON uls.en USING btree (unique_system_identifier);
 
-
---
--- Name: en_usi_callsign_idx; Type: INDEX; Schema: uls; Owner: pubacc
---
-
 CREATE INDEX en_usi_callsign_idx ON uls.en USING btree (unique_system_identifier, call_sign);
-
-
---
--- Name: hs_callsign_idx; Type: INDEX; Schema: uls; Owner: pubacc
---
 
 CREATE INDEX hs_callsign_idx ON uls.hs USING btree (callsign);
 
-
---
--- Name: hs_unique_system_identifier_idx; Type: INDEX; Schema: uls; Owner: pubacc
---
-
 CREATE INDEX hs_unique_system_identifier_idx ON uls.hs USING btree (unique_system_identifier);
-
-
---
--- Name: vc_callsign_requested_idx; Type: INDEX; Schema: uls; Owner: pubacc
---
 
 CREATE INDEX vc_callsign_requested_idx ON uls.vc USING btree (callsign_requested);
 
-
---
--- Name: vc_callsign_usi_idx; Type: INDEX; Schema: uls; Owner: pubacc
---
-
 CREATE INDEX vc_callsign_usi_idx ON uls.vc USING btree (callsign_requested, unique_system_identifier);
-
-
---
--- Name: vc_unique_system_identifieridx; Type: INDEX; Schema: uls; Owner: pubacc
---
 
 CREATE INDEX vc_unique_system_identifier_idx ON uls.vc USING btree (unique_system_identifier);
