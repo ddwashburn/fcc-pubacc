@@ -1,7 +1,6 @@
 -- Universal Licensing System (ULS)
 CREATE SCHEMA IF NOT EXISTS uls;
-
-\SET search_path TO uls;
+SET search_path TO uls;
 
 -- Additional Appliction Detail
 CREATE TABLE IF NOT EXISTS uls.a2
@@ -294,7 +293,7 @@ CREATE TABLE IF NOT EXISTS uls.amateur_operator_class
 COMMENT ON TABLE uls.amateur_operator_class IS 'Amateur Operator Class';
 
 TRUNCATE TABLE uls.amateur_operator_class;
-INSERT INTO uls.amateur_operator_class (operator_class, description) VALUES
+INSERT INTO uls.amateur_operator_class (class, description) VALUES
       ('A', 'Advanced'),
       ('E', 'Amateur Extra'),
       ('G', 'General'),
@@ -748,7 +747,7 @@ COMMENT ON TABLE uls.en IS 'Entity';
 -- Entity type
 CREATE TABLE IF NOT EXISTS uls.entity_type
 (
-	entity_type	CHAR(2)	UNIQUE PRIMARY KEY,
+	type	CHAR(2)	UNIQUE PRIMARY KEY,
 	description	VARCHAR(40)
 );
 
@@ -756,7 +755,7 @@ COMMENT ON TABLE uls.entity_type IS 'Entity type';
 
 TRUNCATE TABLE uls.entity_type;
 
-INSERT INTO uls.entity_type (entity_type, description) VALUES
+INSERT INTO uls.entity_type (type, description) VALUES
 	('CE', 'Transferee Contact'),
 	('CL', 'Licensee Contact'),
 	('CR', 'Assignor or Transferor Contact'),
@@ -1642,7 +1641,7 @@ CREATE TABLE IF NOT EXISTS uls.l2
       status_date		timestamp(3)	     null
 );
 
-COMMENT ON TABLE uls.ls IS 'Additonal Location Data';
+COMMENT ON TABLE uls.l2 IS 'Additonal Location Data';
 
 -- Location Free Form Special Condition
 CREATE TABLE IF NOT EXISTS uls.lf
@@ -2818,54 +2817,6 @@ CREATE TABLE IF NOT EXISTS uls.tp
 );
 
 COMMENT ON TABLE uls.tp IS 'Transmission Method or Protocol';
-
-
-ALTER TABLE ONLY uls.application_purpose
-    ADD CONSTRAINT application_purpose_pkey PRIMARY KEY (purpose);
-
-
-ALTER TABLE ONLY uls.application_status
-    ADD CONSTRAINT application_status_pkey PRIMARY KEY (status);
-
-
-ALTER TABLE ONLY uls.application_change_type
-    ADD CONSTRAINT application_change_type_pkey PRIMARY KEY (type);
-
-
-ALTER TABLE ONLY uls.notification_code
-    ADD CONSTRAINT notification_code_pkey PRIMARY KEY (code);
-
-
-ALTER TABLE ONLY uls.application_source
-    ADD CONSTRAINT application_source_pkey PRIMARY KEY (source);
-
-
-ALTER TABLE ONLY uls.use_of_service_code
-    ADD CONSTRAINT ad_use_of_service_code_pkey PRIMARY KEY (code);
-
-
-ALTER TABLE ONLY uls.amateur_operator_class
-    ADD CONSTRAINT amateur_operator_class_pkey PRIMARY KEY (class);
-
-
-ALTER TABLE ONLY uls.applicant_type_code
-    ADD CONSTRAINT applicant_type_code_pkey PRIMARY KEY (code);
-
-
-ALTER TABLE ONLY uls.entity_type
-    ADD CONSTRAINT entity_type_pkey PRIMARY KEY (type);
-
-
-ALTER TABLE ONLY uls.license_type
-    ADD CONSTRAINT license_type PRIMARY KEY (type);
-
-
-ALTER TABLE ONLY uls.license_status
-    ADD CONSTRAINT license_status_pkey PRIMARY KEY (status);
-
-
-ALTER TABLE ONLY uls.history_code
-    ADD CONSTRAINT history_code_pkey PRIMARY KEY (code);
 
 
 CREATE INDEX am_callsign_idx ON uls.am USING btree (callsign);
