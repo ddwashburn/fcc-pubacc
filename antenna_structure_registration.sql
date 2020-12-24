@@ -310,7 +310,7 @@ INSERT INTO asr.application_purpose (purpose, description) VALUES
 
 CREATE TABLE IF NOT EXISTS asr.input_source_code
 (
-	code	char(1) PRIMARY KEY;
+	code	char(1) PRIMARY KEY,
 	description	varchar(12)
 );
 
@@ -409,7 +409,7 @@ CREATE TABLE IF NOT EXISTS asr.entity_type
 (
 	type	char(1)	PRIMARY KEY,
 	description	varchar(30)
-)
+);
 
 COMMENT ON TABLE asr.entity_type IS 'Entity Type';
 
